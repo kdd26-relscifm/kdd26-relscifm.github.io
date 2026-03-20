@@ -6,15 +6,13 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>[RelSciFM @ KDD 2026] Workshop on Reliable Scientific Foundation Models: Design, Training, Grounding, and Verification</title>
-  <!-- <meta name="description" content="NeurIPS 2025 Workshop on Socially Responsible and Trustworthy Foundation Models (ResponsibleFM)."> -->
   <meta name="description" content="RelSciFM 2026: KDD 2026 Workshop on Reliable Scientific Foundation Models: Design, Training, Grounding, and Verification.">
-  <!-- <meta name="keywords" content="NeurIPS, Responsible AI, Trustworthy AI, Foundation Models, Safety, Fairness, Transparency"> -->
   <meta name="keywords" content="KDD, KDD 2026, Scientific Foundation Models, SciFM, Reliability, Grounding, Verification, Evaluation, Trustworthy AI">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,11 +31,6 @@
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-      <!-- <a href="index.html" class="logo d-flex align-items-center me-auto"> -->
-        <!-- <img src="assets/img/logo.png" alt="ResponsibleFM"> -->
-        <!-- <h1 class="sitename">ResponsibleFM</h1> -->
-      <!-- </a> -->
-
       <nav id="navmenu" class="navmenu">
         <ul>
           <li><a href="#hero" class="active">Home</a></li>
@@ -47,19 +40,12 @@
           <li><a href="#speakers">Speakers</a></li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#organizers">Organizers</a></li>
-          <!-- <li><a href="#advisors">Advisors</a></li> -->
-          <!-- <li><a href="#venue">Venue</a></li> -->
-          <!-- <li><a href="#faq">FAQ</a></li> -->
-          <!-- <li><a href="#contact">Contact</a></li> -->
         </ul>
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
-      <!-- <a class="cta-btn d-block" href="https://join.slack.com/t/responsiblefm/shared_invite/zt-3h3iw2jyf-WDabQ_PYxue9BfdjkeOdHg">
-        Join ResponsibleFM Community on Slack
-      </a> -->
       <a class="cta-btn d-block" href="https://kdd2026.kdd.org/">
-        KDD 2026 Website
+        KDD 2026
       </a>
     </div>
   </header>
@@ -69,13 +55,19 @@
 
     <!-- Hero -->
     <section id="hero" class="hero section dark-background">
-      <img src="assets/img/bg.jpg" alt="" data-aos="fade-in">
+      <img src="assets/img/bg.jpg" alt="" class="hero-bg" data-aos="fade-in">
       <div class="container d-flex flex-column align-items-center text-center mt-auto">
+        <div class="hero-badge" data-aos="fade-up" data-aos-delay="50">KDD 2026 Workshop</div>
         <h2 data-aos="fade-up" data-aos-delay="100">
-          KDD 2026 Workshop on<br>
-          <span>Reliable Scientific Foundation Models: Design, Training, Grounding, and Verification</span> (RelSciFM)
+          Reliable Scientific<br>
+          <span>Foundation Models</span>
         </h2>
-        <p data-aos="fade-up" data-aos-delay="200">Jeju · Korea · KDD 2026</p>
+        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
+          Design · Training · Grounding · Verification
+        </p>
+        <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="250" style="font-size: 18px; margin-top: 12px;">
+          Jeju · Korea · KDD 2026
+        </p>
       </div>
 
       <div class="about-info mt-auto position-relative">
@@ -86,13 +78,8 @@
               <p>
                 RelSciFM focuses on building reliable Scientific Foundation Models (SciFMs) for scientific discovery and high-stakes decision-making. 
                 The workshop emphasizes design and training, grounding to scientific evidence, and verification protocols that make model claims auditable and replayable.
-                <!-- The ResponsibleFM Workshop is an interdisciplinary forum focused on advancing ethical, inclusive, and socially responsible -->
-                <!-- research in foundation models (language and multimodal). With growing societal impact, we address fairness, accountability, -->
-                <!-- transparency, and safety <em>throughout</em> model development and deployment—proactively tackling ethical and social risks. -->
               </p>
               <p>
-                <!-- We bring together researchers, practitioners, ethicists, policy-makers, and affected communities to catalyze methods and
-                best practices ensuring foundation model research serves the common good. -->
                 We bring together researchers and practitioners across data mining, machine learning, and domain sciences to share methods, datasets, benchmarks,
                 and best practices for reliable, grounded, and verifiable SciFMs.
               </p>
@@ -103,7 +90,6 @@
             </div>
             <div class="col-lg-3">
               <h3>When</h3>
-              <!-- <p>KDD 2026 (Sun 30 Nov 1 p.m. — 8 p.m. CST)</p> -->
               <p>KDD 2026</p>
             </div>
           </div>
@@ -120,100 +106,59 @@
       </div>
 
       <div class="container">
-        <h3>Topics</h3>
-        <!-- <ul>
-          <li>
-            <strong>Defining & Measuring Trustworthiness</strong>
-            <ul>
-              <li>Rigorous definitions across fairness, safety, truthfulness, privacy, explainability, robustness, and cultural awareness.</li>
-              <li>Standardized, reproducible evaluation protocols and best practices.</li>
-            </ul>
-          </li>
-          <li>
-            <strong>Techniques to Enhance Trustworthiness</strong>
-            <ul>
-              <li>Bias mitigation and fairness methods (pre-training & fine-tuning).</li>
-              <li>Knowledge editing, continual learning, and machine unlearning.</li>
-              <li>Watermarking and provenance tracking for accountability.</li>
-              <li>Defenses against adversarial attacks and jailbreaking; safety layers and red teaming.</li>
-            </ul>
-          </li>
-          <li>
-            <strong>Deployment & Social Good</strong>
-            <ul>
-              <li>Case studies in healthcare, education, public policy, social welfare, environment.</li>
-              <li>Managing risks in high-stakes applications and maximizing positive impact.</li>
-            </ul>
-          </li>
-          <li>
-            <strong>Datasets & Benchmarks</strong>
-            <ul>
-              <li>Diverse, inclusive, and ethically curated datasets; consent and representation.</li>
-              <li>Comprehensive benchmarks for fairness, robustness, privacy, and more.</li>
-              <li>Transparent documentation (data/model cards, datasheets).</li>
-            </ul>
-          </li>
-          <li>
-            <strong>Interdisciplinary Perspectives & Governance</strong>
-            <ul>
-              <li>Insights from social sciences, philosophy, law, and public policy.</li>
-              <li>Legal/ethical frameworks: compliance, auditability, regulation.</li>
-              <li>Participatory, community-engaged risk assessment and governance.</li>
-            </ul>
-          </li>
-        </ul> -->
+        <h3 data-aos="fade-up">Topics</h3>
         <ul>
-          <li>
-            <strong>Architecture Design with Scientific Priors:</strong>
+          <li data-aos="fade-up" data-aos-delay="50">
+            <strong>Architecture Design with Scientific Priors</strong>
             <ul>
               <li>Inductive biases for invariances, conservation laws, units, and geometry</li>
               <li>Modular, interpretable, controllable designs across multimodal scientific data</li>
             </ul>
           </li>
-          <li>
-            <strong>Evidence Grounding and Provenance:</strong>
+          <li data-aos="fade-up" data-aos-delay="80">
+            <strong>Evidence Grounding and Provenance</strong>
             <ul>
               <li>Retrieval over databases/knowledge graphs with explicit attribution</li>
               <li>Faithfulness and version-aware evidence tracking</li>
             </ul>
           </li>
-          <li>
-            <strong>Tool- and Simulator-Integrated Modeling:</strong>
+          <li data-aos="fade-up" data-aos-delay="110">
+            <strong>Tool- and Simulator-Integrated Modeling</strong>
             <ul>
               <li>Reliable interfaces to simulators, solvers, and symbolic engines</li>
               <li>Hybrid mechanistic data-driven learning with traceable tool execution</li>
             </ul>
           </li>
-          <li>
-            <strong>Reliable Data and Pretraining:</strong>
+          <li data-aos="fade-up" data-aos-delay="140">
+            <strong>Reliable Data and Pretraining</strong>
             <ul>
               <li>Curation for quality and coverage (de-dup, contamination checks, uncertainty metadata)</li>
               <li>Robust objectives and continual updates under shifting protocols</li>
             </ul>
           </li>
-          <li>
-            <strong>Uncertainty and Risk Control:</strong>
+          <li data-aos="fade-up" data-aos-delay="170">
+            <strong>Uncertainty and Risk Control</strong>
             <ul>
               <li>Calibrated uncertainty, abstention/defer, and risk–coverage trade-offs</li>
               <li>Uncertainty under shift and tool feedback</li>
             </ul>
           </li>
-          <li>
-            <strong>Validity, Robustness, and Stress Tests:</strong>
+          <li data-aos="fade-up" data-aos-delay="200">
+            <strong>Validity, Robustness, and Stress Tests</strong>
             <ul>
               <li>Constraint checks, invariance/counterfactual tests, and closed-loop tool validation</li>
               <li>Robustness to rare regimes and distribution shifts</li>
             </ul>
           </li>
-          <li>
-            <strong>Reproducibility and Auditing:</strong>
+          <li data-aos="fade-up" data-aos-delay="230">
+            <strong>Reproducibility and Auditing</strong>
             <ul>
               <li>Versioned pipelines, environment/seed capture, and tool-trace logs</li>
               <li>Standardized reporting for third-party verification</li>
             </ul>
           </li>
-          <li>
-            <strong>Benchmarks and Community Testbeds:</strong>
+          <li data-aos="fade-up" data-aos-delay="260">
+            <strong>Benchmarks and Community Testbeds</strong>
             <ul>
               <li>Reliability-focused benchmarks (correctness, faithfulness, constraints, calibration)</li>
               <li>Shared evaluation harnesses and open resources</li>
@@ -231,35 +176,28 @@
       </div>
 
       <div class="container">
-        <!-- <h3>Submission Site</h3>
-        <p>
-          <a href="https://openreview.net/group?id=NeurIPS.cc/2025/Workshop_Mexico_City/ResponsibleFM" target="_blank" rel="noopener">OpenReview</a>
-        </p> -->
-
-        <h3>Format & Policy</h3>
-        <ul>
+        <h3 data-aos="fade-up">Format & Policy</h3>
+        <ul data-aos="fade-up" data-aos-delay="100">
           <li><strong>Tracks & Length:</strong> Main Paper Track: 8 pages; Position Paper Track: 4 pages; Short Paper Track: 2–4 pages.</li>
           <li><strong>Format:</strong> Single PDF. References are excluded from the page limits. Optional appendix is allowed, but the main content pages should be self-contained.</li>
           <li><strong>Style:</strong> Use the KDD 2026 LaTeX style file. Include references and supplementary in the same PDF.</li>
           <li><strong>Dual-submission / Non-archival:</strong> Ongoing/unpublished work and under-review manuscripts are allowed (respect venue policies). The workshop is non-archival.</li>
           <li><strong>Visibility:</strong> Submissions and reviews are not public. Only accepted papers will be made public.</li>
           <li><strong>Double-blind:</strong> Anonymize all materials (including linked code/data). No acknowledgements at submission time.</li>
-          <!-- <li><strong>Awards: </strong>We will select one Best Paper and one Outstanding Paper.</li> -->
         </ul>
 
-        <p>
+        <p data-aos="fade-up" data-aos-delay="150">
           <strong>Awards:</strong> We will select one Best Paper and one Outstanding Paper.
         </p>
-        <p>
+        <p data-aos="fade-up" data-aos-delay="150">
           <strong>Template:</strong> <a href="https://www.acm.org/publications/proceedings-template" target="_blank" rel="noopener">ACM Proceedings Template</a>
         </p>
 
-        <h3>Important Dates (AoE)</h3>
-        <ul>
+        <h3 data-aos="fade-up" data-aos-delay="200">Important Dates (AoE)</h3>
+        <ul data-aos="fade-up" data-aos-delay="250">
           <li><strong>Submission:</strong> April 30, 2026</li>
           <li><strong>Notification:</strong> June 4, 2026</li>
           <li><strong>Camera-Ready:</strong> June 18, 2026</li>
-          <!-- <li><strong>Workshop Day:</strong> Sun 30 Nov 1 p.m. — 8 p.m. CST</li> -->
         </ul>
       </div>
     </section>
@@ -272,9 +210,8 @@
       </div>
 
       <div class="container">
-        <p>
-          <!-- We are pleased to announce the accepted papers for the ResponsibleFM workshop. You can view the full list of accepted papers on <a href="https://openreview.net/group?id=NeurIPS.cc/2025/Workshop_Mexico_City/ResponsibleFM" target="_blank" rel="noopener">OpenReview</a> and their posters <a href="https://drive.google.com/drive/folders/1pulN4jhx4IUoqotHg6sh1V_TP_KslT_K?usp=sharing" target="_blank" rel="noopener">here</a>. -->
-          We will announce the accepted papers for the ResponsibleFM workshop.
+        <p data-aos="fade-up" data-aos-delay="100" style="text-align: center; color: var(--text-secondary); font-size: 17px;">
+          We will announce the accepted papers for the RelSciFM workshop.
         </p>
       </div>
     </section>
@@ -286,7 +223,7 @@
         <h2>Invited Keynote Speakers</h2>
       </div>
       <div class="container">
-        <div class="row gy-4">
+        <div class="row gy-4 justify-content-center">
 
           <!-- Jian Tang -->
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
@@ -299,11 +236,10 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="talk-title small mt-2">AI for Molecule/Protein Design <span style="color:#d00; font-weight:600;">(Confirmed)</span></div> -->
           </div>
 
           <!-- Alix Schmidt -->
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="120">
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
             <div class="member">
               <img src="assets/img/speakers/alix.png" class="img-fluid" alt="Alix Schmidt">
               <div class="member-info">
@@ -313,11 +249,10 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="talk-title small mt-2">AI for Materials Informatics <span style="color:#d00; font-weight:600;">(Confirmed)</span></div> -->
           </div>
 
           <!-- Xin Gao -->
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="140">
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
             <div class="member">
               <img src="assets/img/speakers/xingao.png" class="img-fluid" alt="Xin Gao">
               <div class="member-info">
@@ -327,7 +262,6 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="talk-title small mt-2">Bioinformatics / Computational Biology <span style="color:#d00; font-weight:600;">(Confirmed)</span></div> -->
           </div>
 
         </div>
@@ -339,7 +273,8 @@
     <!-- Schedule -->
     <section id="schedule" class="schedule section">
       <div class="container section-title" data-aos="fade-up">
-        <h2>Event Schedule (TBA)</h2>
+        <h2>Event Schedule</h2>
+        <p>Detailed schedule to be announced.</p>
       </div>
     
       <div class="container">
@@ -347,43 +282,43 @@
           <div role="tabpanel" class="col-lg-9 tab-pane fade show active" id="all">
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>8:00 am – 8:10 am</time></div>
+              <div class="col-md-2"><time>8:00 – 8:10</time></div>
               <div class="col-md-10"><h4>Opening Ceremony</h4></div>
             </div>
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>8:10 am – 8:45 am</time></div>
-              <div class="col-md-10"><h4>Keynote Talk 1 (Invited Speaker) — Jian Tang</h4></div>
+              <div class="col-md-2"><time>8:10 – 8:45</time></div>
+              <div class="col-md-10"><h4>Keynote Talk 1 <span>— Jian Tang</span></h4></div>
             </div>
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>8:45 am – 9:20 am</time></div>
-              <div class="col-md-10"><h4>Keynote Talk 2 (Invited Speaker) — Alix Schmidt</h4></div>
+              <div class="col-md-2"><time>8:45 – 9:20</time></div>
+              <div class="col-md-10"><h4>Keynote Talk 2 <span>— Alix Schmidt</span></h4></div>
             </div>
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>9:20 am – 9:55 am</time></div>
-              <div class="col-md-10"><h4>Keynote Talk 3 (Invited Speaker) — Xin Gao</h4></div>
+              <div class="col-md-2"><time>9:20 – 9:55</time></div>
+              <div class="col-md-10"><h4>Keynote Talk 3 <span>— Xin Gao</span></h4></div>
             </div>
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>9:55 am – 10:35 am</time></div>
-              <div class="col-md-10"><h4>Coffee Break and Poster Session</h4></div>
+              <div class="col-md-2"><time>9:55 – 10:35</time></div>
+              <div class="col-md-10"><h4>Coffee Break & Poster Session</h4></div>
             </div>
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>10:35 am – 11:10 am</time></div>
-              <div class="col-md-10"><h4>Keynote Talk 4 (Invited Speaker) — TBA</h4></div>
+              <div class="col-md-2"><time>10:35 – 11:10</time></div>
+              <div class="col-md-10"><h4>Keynote Talk 4 <span>— TBA</span></h4></div>
             </div>
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>11:10 am – 11:40 am</time></div>
+              <div class="col-md-2"><time>11:10 – 11:40</time></div>
               <div class="col-md-10"><h4>Best Paper Spotlight</h4></div>
             </div>
     
             <div class="row schedule-item">
-              <div class="col-md-2"><time>11:40 am – 12:00 pm</time></div>
-              <div class="col-md-10"><h4>Award Ceremony and Closing Session</h4></div>
+              <div class="col-md-2"><time>11:40 – 12:00</time></div>
+              <div class="col-md-10"><h4>Award Ceremony & Closing</h4></div>
             </div>
     
           </div>
@@ -399,8 +334,7 @@
       </div>
 
       <div class="container">
-        <div class="row gy-4 five-per-row">
-
+        <div class="row gy-4 five-per-row justify-content-center">
 
           <!-- Yue Huang -->
           <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="20">
@@ -422,9 +356,7 @@
               <div class="member-info">
                 <div class="member-info-content">
                   <h4><a href="https://ignite-abd.github.io/">Xiaoda Wang</a></h4>
-                  <span>
-                    Emory University<br>
-                  </span>
+                  <span>Emory University</span>
                 </div>
               </div>
             </div>
@@ -437,9 +369,7 @@
               <div class="member-info">
                 <div class="member-info-content">
                   <h4><a href="https://yccm.github.io/">Yuchen Ma</a></h4>
-                  <span>
-                    LMU Munich<br>
-                  </span>
+                  <span>LMU Munich</span>
                 </div>
               </div>
             </div>
@@ -491,9 +421,7 @@
               <div class="member-info">
                 <div class="member-info-content">
                   <h4><a href="https://web.cs.ucla.edu/~weiwang/">Wei Wang</a></h4>
-                  <span>
-                    UCLA<br>
-                  </span>
+                  <span>UCLA</span>
                 </div>
               </div>
             </div>
@@ -506,9 +434,7 @@
               <div class="member-info">
                 <div class="member-info-content">
                   <h4><a href="https://www.cs.emory.edu/~jyang71/">Carl Yang</a></h4>
-                  <span>
-                    Emory University<br>
-                  </span>
+                  <span>Emory University</span>
                 </div>
               </div>
             </div>
@@ -527,47 +453,10 @@
             </div>
           </div>
 
-
-        </div><!-- /row -->
+        </div>
       </div>
     </section>
     <!-- /Organizers -->
-
-
-
-    <!-- Contact -->
-    <!-- <section id="contact" class="contact section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Contact</h2>
-      </div>
-
-      <div class="container" data-aos="fade-up" data-aos-delay="100">
-        <div class="row gy-4">
-          <div class="col-lg-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="200">
-              <i class="bi bi-geo-alt"></i>
-              <h3>Address</h3>
-              <p>Hilton Mexico City Reforma</p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="300">
-              <i class="bi bi-telephone"></i>
-              <h3>Join Slack</h3>
-              <p><a href="https://join.slack.com/t/responsiblefm/shared_invite/zt-3h3iw2jyf-WDabQ_PYxue9BfdjkeOdHg" target="_blank" rel="noopener noreferrer">Invitation Link</a></p>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6">
-            <div class="info-item d-flex flex-column justify-content-center align-items-center" data-aos="fade-up" data-aos-delay="400">
-              <i class="bi bi-envelope"></i>
-              <h3>Email Us</h3>
-              <p>responsiblefm@googlegroups.com</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- /Contact -->
 
   </main>
 
