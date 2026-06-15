@@ -215,15 +215,154 @@
     <!-- /CFP -->
 
     <!-- Accepted Papers -->
-    <section id="accepted-papers" class="cfp section">
+    <section id="accepted-papers" class="cfp section accepted-papers-section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Accepted Papers</h2>
+        <p>Hover over a paper title to preview the abstract.</p>
       </div>
 
       <div class="container">
-        <p data-aos="fade-up" data-aos-delay="100" style="text-align: center; color: var(--text-secondary); font-size: 17px;">
-          We will announce the accepted papers for the RelSciFM workshop.
-        </p>
+        <div class="accepted-papers-note" data-aos="fade-up" data-aos-delay="80">
+          This year, RelSciFM is collaborating with the
+          <a href="https://kdd2026.kdd.org/ai4sciences-track-call-for-papers/" target="_blank" rel="noopener noreferrer">
+            KDD 2026 AI for Sciences Track (First Edition)
+          </a>
+          to offer spotlight talk opportunities for accepted papers from the track. The selected paper list will be announced soon.
+        </div>
+
+        <div class="accepted-papers-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="table-responsive">
+            <table class="accepted-papers-table">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Authors</th>
+                  <th scope="col">Type</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">1</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=OUn5JXhLBK" target="_blank" rel="noopener noreferrer">ProSAM: Modular and Energy-Guided Fine-Tuning of Protein Language Models for Structure Prediction</a></div>
+                  <div class="paper-abstract-popover">Fine-tuning Protein Language Models (PLMs) for structure prediction is limited by uniform feature treatment and the absence of uncertainty modeling during training. We introduce ProSAM, a modular framework that decomposes PLM representations via a Dual-path Encoder, modulates them through a Protein-Aware Structural Adapter (PASA) and Fold-Specific Prompting (FSP), and regularizes outputs with an Energy-Guided Conformational Uncertainty (ECU) module. Unlike post-hoc confidence estimation, ECU embeds reliable, physics-grounded uncertainty directly into the training-time forward pass, enabling well-calibrated per-residue confidence that outperforms ESMFold&#x27;s pLDDT (Spearman $\rho\=0.91$ vs.$0.86$). On CASP14, ProSAM achieves TM-score $0.892\pm0.005$ and RMSD-C$_\alpha$ $1.23\pm0.08$\,A, improving $+4.1$ points over ESMFold ($p&lt;0.01$, paired Wilcoxon, Cohen&#x27;s $d\=1.42$). Gains persist on CASP15 ($+3.4$), CAMEO-hard, and PDB-2022, and are largest for low-MSA-depth targets ($+4.9$). ProSAM outperforms LoRA and Adapter baselines while adding only 12.3M parameters (1.9% of the frozen PLM). Code and weights will be released upon acceptance; a reproducibility preview is available at https://anonymous.4open.science/r/ProSAM.</div>
+                </td>
+                <td class="paper-authors">Yiyang Zheng, Zhiguo Tao</td>
+                <td><span class="paper-badge oral">Oral</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">2</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=JelUTu4fgT" target="_blank" rel="noopener noreferrer">Interactive Benchmarking of Scientific Coding Agents for Spatial Transcriptomics Alignment</a></div>
+                  <div class="paper-abstract-popover">Building and evaluating scientific coding agents requires not only executable tasks but also human-in-the-loop verification for ambiguous and non-verifiable outcomes. Most benchmarks to date have been built bespoke by experts and scored via rubrics on final outputs. Here we explore two interactive augmentations: (1) building benchmark datasets from peer-reviewed papers, and (2) inspecting agent traces to see how workflows emerge. We construct 40 spatial transcriptomics alignment tasks, a challenging problem in computational biology where agents submit coordinate tables aligning a pair of 2D slices. Across 120 runs under each of three configurations---basic prompt, package-aware prompt, and full prompt plus prebuilt virtual environment---we find that more package hints increased tool exploration but did not improve performance: the full regime scored lower than Basic (0.361 vs. 0.428; 95% CI [-0.113, -0.028]). Trace inspection shows that richer scaffolding encouraged unnecessary transformations on already-aligned inputs, fragile package-first workflows, and infrastructure failures. Our results highlight that scientific-agent evaluations should therefore involve interactive construction and trace inspection to balance the variance and bias introduced by added context and tools.</div>
+                </td>
+                <td class="paper-authors">Yiqun T. Chen</td>
+                <td><span class="paper-badge oral">Oral</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">3</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=eXZOJiRCGp" target="_blank" rel="noopener noreferrer">Rough Paths to Certified Reliability</a></div>
+                  <div class="paper-abstract-popover">We present a proof-of-concept neural operator for partial differential equations that delivers certified reliability rather than just accuracy. Our model combines a Neural Rough Differential Equation (NRDE) backbone with a four-level Trustworthiness Loss that includes data fidelity, PDE residual, a Repin majorant for deterministic energy-norm certificates on elliptic problems, and a signature-kernel term. On 1D Burgers, advection, and 2D Darcy, we obtain three main results: (i) a Repin-guided training procedure yields zero-violation certified upper bounds across 192 model-sample pairs with a median effectivity index of $ \approx 4.1$, while simultaneously reducing true energy error by 34\% compared to data-only training; (ii) the PDE residual is a reliable trust signal on elliptic problems (Pearson $r \approx +0.89$) but anti-correlates with error on hyperbolic ones ($r \approx -0.4$), confirming that soft trust is strongly domain-specific as Krishnapriyan~et~al. predicted; (iii) pretraining on multiple PDE families followed by fine-tuning on a held-out task achieves $3.2\times$ lower error than training from scratch under identical budget, while zero-shot transfer fails at chance level. These results demonstrate that certified a-posteriori bounds and domain-aware trust signals can be made first-class training objectives in neural PDE operators, offering a practical path toward reliable foundation models for scientific computing.</div>
+                </td>
+                <td class="paper-authors">Gordei Verbii</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">4</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=Ob6XA32RQp" target="_blank" rel="noopener noreferrer">Temporal Causal Graph Retrieval Under Distribution Shift in Financial Markets</a></div>
+                  <div class="paper-abstract-popover">Financial event retrieval systems predominantly rely on semantic similarity or correlation-based graph structures, which often fail under temporal market distribution shifts such as geopolitical crises, supply-chain disruptions, and macroeconomic shocks. Existing graph-based financial intelligence approaches model event relationships using static or undirected dependencies, limiting their ability to distinguish upstream causal events from downstream effects. To address this limitation, we propose Causal Temporal Retrieval (CTR), a causal-aware financial event retrieval framework that integrates temporal graph reasoning with directed causal event propagation. Unlike traditional retrieval systems that rely solely on embedding similarity, the proposed framework jointly models semantic relevance, causal influence, and temporal decay within a dynamic financial event graph. Causal edges are constructed using a combination of Granger causality and transfer entropy, while a learnable temporal decay mechanism captures the diminishing influence of historical events over time. Furthermore, we evaluate retrieval robustness under market regime shifts using out-of-distribution crisis periods including COVID-19 onset and the Russia–Ukraine conflict. Experimental results on heterogeneous financial event streams demonstrate that CTR consistently outperforms vector-based and correlation-graph baselines in Precision@K, NDCG, and downstream financial prediction tasks, while exhibiting significantly lower performance degradation during temporal distribution shifts. The findings indicate that causal temporal graph structure provides a robust inductive bias for financial event intelligence under rapidly evolving market conditions.</div>
+                </td>
+                <td class="paper-authors">Keshav Gupta</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">5</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=8GONwoGXLg" target="_blank" rel="noopener noreferrer">SciReview: A Reliability Benchmark for Frontier LLMs on Conceptual Scientific Errors</a></div>
+                  <div class="paper-abstract-popover">Large language models are being adopted as critical readers of scientific text: as draft reviewers, as automated verifiers, and as assistants for hypothesis screening. In these roles, the relevant question is not only how often the model flags an error, but also how often a flagged error is real. Conventional accuracy or recall metrics conflate the two and can therefore make an unreliable, over- flagging model look strong. We introduce SciReview, a benchmark of 100 expert-authored research-grade conceptual errors planted into otherwise faithful scientific passages, in which each item is paired with adversarial distractor passages designed to be plau- sibly criticizable but in fact correct. The benchmark targets the conjunction of high recall on real errors and low false-positive rate on non-errors, which we treat as a working operational definition of reliability for an LLM scientific critic. We evaluate three fron- tier systems (GPT-5.4, Gemini 3.1 Pro, and Claude Opus 4.6) and report a paired set of selectivity-sensitive metrics: an attempt rate, a precision rate, and a flag-conditioned miss rate, each in raw form and under a strict zero-false-positive gate. Under the raw metric, the apparent best model flags the most items overall; under the strict gate, the ranking inverts, and the model that flagged most aggressively retains the smallest share of verified catches. We interpret this rank inversion as evidence that aggregate flag rates are not, on their own, adequate evidence of scientific reliability, and we argue that reliability-focused benchmarks should report selectivity-aware metrics as standard. We close with a diagnostic walk-through of three representative error types—stereochemistry of a 𝛽-amino acid synthesis, group-to-individual inference in neuroimaging, and a boundary-condition error in extremal black hole asymptotics—chosen to show that current frontier models can miss conceptually different but practically common failure modes of careful scientific reading.</div>
+                </td>
+                <td class="paper-authors">Sushant Mehta</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">6</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=Sd6YVyRecg" target="_blank" rel="noopener noreferrer">KGLA: Knowledge Graph Enhanced Language Agents for Recommendation</a></div>
+                  <div class="paper-abstract-popover">Language agents have recently been used to simulate human behavior and user-item interactions for recommendation systems. However, current work focuses only on simulating interactions but neglects the potential rationales behind why the interaction happens, leading to inaccurate simulated user profiles and ineffective recommendations. In this work, we explore the utility of Knowledge Graphs (KGs), which contain extensive and reliable information about relationships between users and items, for recommendation. Our key insight is that the paths in a KG can represent rationales behind why user interacts with items, eliciting the underlying reasons for user preferences and enriching user profiles. Leveraging this insight, we propose Knowledge Graph Enhanced Language Agents (KGLA), a framework that unifies language agents and KG for recommendation systems. In the simulated recommendation scenario, we position the user and item within the KG and incorporate KG paths as natural language descriptions into the simulation. This allows language agents to interact with each other and uncover sufficient rationale behind their interactions, making the simulation more accurate and aligned with real-world cases, thus improving recommendation performance. Our experimental results show that KGLA significantly improves recommendation performance (with a 33%-95% boost in NDCG@1 among three widely used benchmarks) compared to the previous best baseline method.</div>
+                </td>
+                <td class="paper-authors">Taicheng Guo, Chaochun Liu, Hai Wang, Varun Mannam, Fang Wang, Xin chen, Xiangliang Zhang, Chandan K. Reddy</td>
+                <td><span class="paper-badge oral">Oral</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">7</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=fn1cHtVm1n" target="_blank" rel="noopener noreferrer">BCoughBench: Benchmarking Respiratory Acoustic Foundation Models Under Body-Coupled Wearable Sensor Conditions</a></div>
+                  <div class="paper-abstract-popover">Respiratory acoustic foundation models (FMs) are benchmarked exclusively on smartphone recordings, yet clinical deployment increasingly targets body-coupled wearable hardware whose sensors attenuate high-frequency content through tissue and bone, leaving FM reliability under wearable conditions uncharacterised. We introduce BCoughBench, evaluating five respiratory FMs (OPERA-CT, OPERA-CE, OPERA-GT, HeAR, M2D+Resp) across nine classification tasks (AUROC, sensitivity at 95% specificity, and Expected Calibration Error) and three age regression tasks (mean absolute error against a mean-predictor baseline) under five simulated body-coupled sensor conditions using pre-trained EBEN reverse models on five labeled cough datasets. Mean AUROC declines from 0.785 (smartphone) to 0.689–0.723 across BC sensors; temple vibration pickup causes the largest degradation (Δ = −0.096) and forehead accelerometer the least (Δ = −0.063). No FM meets the clinical sensitivity threshold (Se@Sp95 ≥ 0.20) on any disease detection task under any BC sensor. Sex classification on the CIDRZ clinical cohort collapses catastrophically (AUROC: 0.954 → 0.596–0.628, Δ = −0.341), while COVID detection is nearly unaffected (Δ = −0.004). Age regression is robust across all sensors and improves under the forehead accelerometer on CoughVID (MAE: 9.61 → 8.97 yr); HeAR is the best FM on disease and regression tasks, M2D+Resp on characteristic tasks. BCoughBench provides a reproducible framework for respiratory FM evaluation under wearable deployment conditions.</div>
+                </td>
+                <td class="paper-authors">Mayur Sanap, Prasanna Desikan, Edgar Lobaton</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">8</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=fxqk8X2fc6" target="_blank" rel="noopener noreferrer">Trustworthy Medical Multimodal Large Language Models: A Survey of Taxonomy, Evaluation, and Benchmarks</a></div>
+                  <div class="paper-abstract-popover">The integration of Multimodal Large Language Models (MLLMs) into healthcare bears potential for a pivotal advancement toward comprehensive generalist AI in medicine, offering transformative capabilities across hierarchical clinical scales, from microscopic tissue analysis to population-level health surveillance. However, such integration into clinical practice is fundamentally constrained by a multifaceted trustworthiness gap. This gap requires rigorous examination of the models&#x27; reliability and ethics alignment. In this paper, we present a comprehensive survey of the taxonomy, evaluation, and benchmarks of trustworthiness research in Medical MLLMs. We first establish a multi-scale clinical landscape to categorize current models, providing critical insights into the interplay between data heterogeneity and clinical task requirements. Subsequently, we propose a holistic, six-dimensional taxonomy of trustworthiness, comprised of truthfulness, robustness, privacy, safety, fairness, and explainability. Using this taxonomy, we critically analyze recurring MLLM trustworthiness failure modes while synthesizing state-of-the-art mitigation strategies. Beyond a technical review, we evaluate the full lifecycle of evaluation paradigms, contrasting traditional automated metrics with frontier LLM-as-a-Judge and expert-centric assessment protocols, including emerging dynamic and workflow-oriented evaluations for interactive medical MLLMs. Crucially, throughout the survey, we highlight current limitations and outline a roadmap for future directions. By bridging technical innovations with clinical reliability, this work serves as a systematic guide for researchers and practitioners aiming to develop the next generation of trustworthy medical AI.</div>
+                </td>
+                <td class="paper-authors">Qiankun Li, Junyuan Mao, JinYue Li, Rui Hao, Guanyu Chen, Linghao Meng, Guibin Zhang, Zhenhong Zhou, Jiayu Qian, Liang Lin, Hao Wu, Bo Fang, Kun Wang, Yue Huang + 9 more authors</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">9</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=J2EtIm7YlK" target="_blank" rel="noopener noreferrer">Self-Improving Agent Factories for Paper Review: When Constrained Beats Open-Ended</a></div>
+                  <div class="paper-abstract-popover">The default mental model for self-improving agents is increasingly open-ended: let an agent edit itself, edit the procedure that edits itself, and accumulate improvements through exploration. This is scientifically valuable, but it is often the wrong industrial abstraction. In production settings, users need low-cost, low-latency, reliable behavior under privacy, audit, rollback, and service-level constraints; they do not need each deployed task agent to become an unbounded learning system. We present Sira (self-improving review agent), a self-improving agent-building factory deployed for rapid creation of venue-specific paper-review agents. Sira freezes the factory skills, execution harness, and common utilities, while editing only task-specific artifacts: venue metadata, rubrics, tool use, reasoning policies, prompts, templates, calibration rules, training samples, and evaluation feedback. The created agents are not self-modifying at runtime; they are regenerated, repaired, benchmarked, versioned, and redeployed offline. On an ICLR-style review-agent creation task, factory-constrained Sira reached 0.941 held-out decision-label accuracy within 2-5 improvement iterations, while HyperAgents-style open self-improvement baseline reached 0.868 using 6-15 mutation steps. The evidence is limited but operationally meaningful: constrained self-improvement can be preferable to open-ended self-improvement on the industrial frontier of time-to-value, expected cost, and governance. We argue that many high-value vertical agents should be built as auditable products of self-improving factories, not as free-running self-modifying workers.</div>
+                </td>
+                <td class="paper-authors">Lele Cao</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">10</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=T4NJqDU2Ul" target="_blank" rel="noopener noreferrer">Tokenizing Antibody–Antigen Complex Structures via Energy-Based Surrogates</a></div>
+                  <div class="paper-abstract-popover">Discrete structural representations provide a crucial foundation for applying modern machine learning frameworks, including language modeling and large multimodal models, to protein structures and their integration with sequences and functional annotations. Despite the central role of antibodies in therapeutic development, effective tokenization of antibody–antigen complex structures remains a challenging problem. In particular, accurately capturing binding sites is difficult due to their high sensitivity to local geometric and energetic perturbations. To address this challenge, we propose a simple yet effective structure tokenization method that preserves binding-relevant energetic information in discrete structural tokens. Our approach is designed to maintain the original binding energy after reconstructing structures from tokens, ensuring that critical interaction cues are retained. Specifically, we utilize inverse folding logits as computationally efficient surrogates for binding energy and enforce their consistency before and after token-based reconstruction. We evaluate the proposed method through extensive experiments on the Rosetta AntibodyDesign (RAbD) benchmark, demonstrating its effectiveness in modeling accurate structure tokens.</div>
+                </td>
+                <td class="paper-authors">Junseok Lee, Yunhak Oh, Namkyeong Lee, Hyunchul Kim, Chanyoung Park</td>
+                <td><span class="paper-badge oral">Oral</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">11</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=K1tRows2YB" target="_blank" rel="noopener noreferrer">Adaptive Graph Rewiring to Mitigate Over-Squashing in Mesh-Based GNNs for Fluid Dynamics Simulations</a></div>
+                  <div class="paper-abstract-popover">Mesh-based simulation using Graph Neural Networks (GNNs) has been recognized as a promising approach for modeling fluid dynamics. However, the mesh refinement techniques which allocate finer resolution to regions with steep gradients can induce the over-squashing problem in mesh-based GNNs, which prevents the capture of long-range physical interactions. Conventional graph rewiring methods attempt to alleviate this issue by adding new edges, but they typically complete all rewiring operations before applying them to the GNN. These approaches are physically unrealistic, as they assume instantaneous interactions between distant nodes and disregard the distance information between particles. To address these limitations, we propose a novel framework, called Adaptive Graph Rewiring in Mesh-Based Graph Neural Networks (AdaMeshNet), that introduces an adaptive rewiring process into the message-passing procedure to model the gradual propagation of physical interactions. Our method computes a rewiring delay score for bottleneck nodes in the mesh graph, based on the shortest-path distance and the velocity difference. Using this score, it dynamically selects the message-passing layer at which new edges are rewired, which can lead to adaptive rewiring in a mesh graph. Extensive experiments on mesh-based fluid simulations demonstrate that AdaMeshNet outperforms conventional rewiring methods, effectively modeling the sequential nature of physical interactions and enabling more accurate predictions.</div>
+                </td>
+                <td class="paper-authors">Sangwoo Seo, Hyunsung Kim, Jiwan Kim, Chanyoung Park</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">12</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=YiazBzWRAU" target="_blank" rel="noopener noreferrer">Physics-Embedded Graph Neural Operator for Interaction-Controlled Colloidal Aggregation</a></div>
+                  <div class="paper-abstract-popover">Colloidal aggregation is a complex function of particle and solution electrochemical conditions, yet predicting aggregation behavior across diffusion-limited and reaction-limited regimes remains challenging due to the nonlinear dependence of collision efficiency on ionic strength and surface potential. This study presents a graph neural operator surrogate model that captures particle aggregation dynamics by embedding transport physics directly into the network architecture as an inductive bias. Particle size classes are represented as graph nodes with Brownian collision kernels encoded in edge features, while attention mechanisms conditioned on ionic strength and zeta potential learn collision efficiency variations governed by extended DLVO interactions. The proposed model predicts aggregation kinetics across a range of electrochemical conditions, achieving $R^2 &gt; 0.99$ for both held-out parameter combinations and temporal extrapolation, and outperforming baseline graph and MLP models without architectural physics embedding, as well as loss-based physics-informed neural networks. Validation against experimental measurements from bacteriophage, polystyrene, and cerium oxide systems confirms reproduction of aggregation regime transitions and kinetic saturation. Attention analysis reveals physically consistent reorganization from multiple information pathways under strong electrostatic repulsion to integrated processing under weak repulsion. This framework enables rapid, physically grounded surrogate modeling of population balance dynamics, with colloidal aggregation as a representative testbed.</div>
+                </td>
+                <td class="paper-authors">Yongjoon Choe, Sungwon Kim, Susan E. Burns, Chanyoung Park</td>
+                <td><span class="paper-badge oral">Oral</span></td>
+              </tr>
+              <tr class="accepted-paper-row" tabindex="0">
+                <td class="paper-index">13</td>
+                <td>
+                  <div class="paper-title"><a href="https://openreview.net/forum?id=ZTADMNwZri" target="_blank" rel="noopener noreferrer">Adopt Machine-Human Collaboration Peer-Review through Computational Research Assessment</a></div>
+                  <div class="paper-abstract-popover">Scientific output is outgrowing human review capacity, while AI is already used to draft papers. Authors scale with machines; reviewers largely do not. This asymmetry turns quality control into a bottleneck and increases the risk of both false rejection of high-novelty work and acceptance of flawed results. We propose Computational Research Assessment (CRA) as a discipline-level, method-agnostic agenda for machine-human collaboration in peer review. CRA rests on three principles: treat disagreement as a signal that triggers escalation instead of averaging; make every critique evidence-linked, reproducible, and contestable; and build a community immune system with open corpora, benchmarks, and red-team tests to surface gaming and bias. We map these principles to a co-review engine, a community commons, and theoretical foundations, and we outline near-term pilots and falsifiable commitments, informed by an emerging production-grade pre-review system deployed in the wild.</div>
+                </td>
+                <td class="paper-authors">Lele Cao, Lei You</td>
+                <td><span class="paper-badge poster">Poster</span></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </section>
     <!-- /Accepted Papers -->
@@ -271,6 +410,19 @@
                 <div class="member-info-content">
                   <h4><a href="https://hangwei12358.github.io/">Hangwei Qian</a></h4>
                   <span>A*STAR</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chenru Duan -->
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
+            <div class="member">
+              <img src="assets/img/organizers/Chenru-Duan.png" class="img-fluid" alt="Chenru Duan">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4>Chenru Duan</h4>
+                  <span>Founder &amp; CTO, Deep Principle</span>
                 </div>
               </div>
             </div>
@@ -539,35 +691,40 @@
     </section>
     <!-- /Organizers -->
 
-    <!-- Sponsors -->
-    <!-- Sponsors -->
     <section id="sponsors" class="cfp section" style="padding-bottom: 40px;">
       <div class="container section-title" data-aos="fade-up">
         <h2>Sponsors</h2>
-        <p>We gratefully acknowledge the generous support from Tencent.</p>
+        <p>We gratefully acknowledge the generous support from our sponsors.</p>
       </div>
     
       <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-lg-10 col-md-11" data-aos="fade-up" data-aos-delay="100">
-            <div class="card border-0 shadow-sm text-center px-4 py-4"
-                 style="border-radius: 18px; background: #ffffff; max-width: 950px; margin: 0 auto;">
+        <div class="row gy-4 justify-content-center align-items-stretch">
+          <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="100">
+            <div class="card border-0 shadow-sm text-center px-4 py-4 sponsor-card">
               
               <a href="https://www.tencent.com/" target="_blank" rel="noopener noreferrer">
                 <img
                   src="assets/img/sponsors/tencent.png"
-                  class="img-fluid"
+                  class="img-fluid sponsor-logo sponsor-logo-tencent"
                   alt="Tencent"
-                  style="max-height: 120px; max-width: 520px; object-fit: contain; margin: 0 auto; display: block;"
                 >
               </a>
     
             </div>
           </div>
+
+          <div class="col-lg-5 col-md-6" data-aos="fade-up" data-aos-delay="150">
+            <div class="card border-0 shadow-sm text-center px-4 py-4 sponsor-card">
+              <img
+                src="assets/img/sponsors/deepprinciple.jpeg"
+                class="img-fluid sponsor-logo sponsor-logo-deepprinciple"
+                alt="Deep Principle"
+              >
+            </div>
+          </div>
         </div>
       </div>
     </section>
-    <!-- /Sponsors -->
     <!-- /Sponsors -->
 
     

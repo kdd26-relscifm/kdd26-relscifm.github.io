@@ -1157,6 +1157,46 @@ section,
 }
 
 /*--------------------------------------------------------------
+# Sponsors
+--------------------------------------------------------------*/
+.sponsor-card {
+  align-items: center;
+  background: #ffffff;
+  border-radius: 18px;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  overflow: hidden;
+  min-height: 190px;
+}
+
+.sponsor-card a {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.sponsor-logo {
+  display: block;
+  height: auto;
+  margin: 0 auto;
+  object-fit: contain;
+  width: 100%;
+}
+
+.sponsor-logo-tencent {
+  max-height: 90px;
+  max-width: 340px;
+}
+
+.sponsor-logo-deepprinciple {
+  max-height: 140px;
+  max-width: 240px;
+}
+
+/*--------------------------------------------------------------
 # Light section variant — for alternate sections
 --------------------------------------------------------------*/
 .section.light-section {
@@ -1192,4 +1232,191 @@ section,
 .section.light-section .cfp .container p,
 .section.light-section .cfp .container ul > li {
   color: #424245;
+}
+
+/*--------------------------------------------------------------
+# Accepted Papers
+--------------------------------------------------------------*/
+.accepted-papers-section .section-title p {
+  color: var(--text-secondary);
+  margin-top: 10px;
+}
+
+.accepted-papers-note {
+  background: linear-gradient(135deg, rgba(41, 151, 255, 0.12), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(41, 151, 255, 0.22);
+  border-radius: 20px;
+  color: rgba(245, 245, 247, 0.86);
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 0 0 22px;
+  padding: 20px 24px;
+}
+
+.accepted-papers-note a {
+  color: #8dccff;
+  font-weight: 700;
+}
+
+.accepted-papers-note a:hover {
+  color: #ffffff;
+}
+
+.accepted-papers-card {
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+  overflow: visible;
+  padding: 8px;
+}
+
+.accepted-papers-card .table-responsive {
+  overflow: visible;
+}
+
+.accepted-papers-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--default-color);
+  margin: 0;
+  width: 100%;
+}
+
+.accepted-papers-table th,
+.accepted-papers-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px 20px;
+  vertical-align: top;
+}
+
+.accepted-papers-table th {
+  color: #ffffff;
+  font-family: var(--heading-font);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.accepted-papers-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.accepted-paper-row {
+  position: relative;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.accepted-paper-row:hover,
+.accepted-paper-row:focus-within {
+  background: rgba(41, 151, 255, 0.09);
+}
+
+.paper-index {
+  color: var(--text-secondary);
+  font-family: var(--heading-font);
+  font-weight: 700;
+  width: 56px;
+}
+
+.paper-title {
+  font-family: var(--heading-font);
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.35;
+  max-width: 760px;
+  position: relative;
+}
+
+.paper-title a {
+  color: #ffffff;
+}
+
+.paper-title a:hover,
+.accepted-paper-row:focus-within .paper-title a {
+  color: var(--accent-color);
+}
+
+.paper-authors {
+  color: rgba(245, 245, 247, 0.72);
+  font-size: 14px;
+  min-width: 190px;
+}
+
+.paper-badge {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.paper-badge.oral {
+  background: rgba(41, 151, 255, 0.18);
+  border-color: rgba(41, 151, 255, 0.35);
+  color: #8dccff;
+}
+
+.paper-badge.poster {
+  background: rgba(48, 209, 88, 0.14);
+  border-color: rgba(48, 209, 88, 0.28);
+  color: #8ef0a8;
+}
+
+.paper-abstract-popover {
+  background: rgba(18, 18, 20, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.42);
+  color: rgba(245, 245, 247, 0.9);
+  font-size: 14px;
+  left: 0;
+  line-height: 1.65;
+  margin-top: 12px;
+  max-width: min(820px, calc(100vw - 48px));
+  opacity: 0;
+  padding: 18px 20px;
+  pointer-events: none;
+  position: absolute;
+  top: calc(100% - 12px);
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  visibility: hidden;
+  z-index: 20;
+}
+
+.paper-abstract-popover::before {
+  background: rgba(18, 18, 20, 0.96);
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  content: "";
+  height: 12px;
+  left: 28px;
+  position: absolute;
+  top: -7px;
+  transform: rotate(45deg);
+  width: 12px;
+}
+
+.accepted-paper-row:hover .paper-abstract-popover,
+.accepted-paper-row:focus-within .paper-abstract-popover {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+@media (max-width: 991px) {
+  .accepted-papers-card .table-responsive {
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .accepted-papers-table {
+    min-width: 860px;
+  }
 }
