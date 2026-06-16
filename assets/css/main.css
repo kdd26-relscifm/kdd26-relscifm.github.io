@@ -1275,6 +1275,20 @@ section,
   overflow: visible;
 }
 
+.spotlight-talks-card {
+  margin-bottom: 28px;
+}
+
+.spotlight-talks-heading {
+  padding: 18px 20px 0;
+}
+
+.spotlight-talks-heading h3 {
+  color: #ffffff;
+  font-size: 22px;
+  margin: 0;
+}
+
 .accepted-papers-table {
   border-collapse: separate;
   border-spacing: 0;
@@ -1366,6 +1380,12 @@ section,
   background: rgba(48, 209, 88, 0.14);
   border-color: rgba(48, 209, 88, 0.28);
   color: #8ef0a8;
+}
+
+.paper-badge.spotlight {
+  background: rgba(255, 159, 10, 0.16);
+  border-color: rgba(255, 159, 10, 0.32);
+  color: #ffd08a;
 }
 
 .paper-abstract-popover {
