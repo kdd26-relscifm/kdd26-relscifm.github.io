@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RelSciFM @ KDD 2026 — Workshop Slides</title>
+  <link href="assets/fonts/fonts.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --default-font: "DM Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      --heading-font: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+      --bg: #000000;
+      --fg: #f5f5f7;
+      --muted: #86868b;
+      --accent: #2997ff;
+      --border: rgba(255, 255, 255, 0.08);
+      --card: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.07);
+      --stage-w: 1280px;
+      --stage-h: 720px;
+      --scale: 1;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      font-family: var(--default-font);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      overflow: hidden;
+    }
+
+    ::selection { background: rgba(41, 151, 255, 0.3); color: #fff; }
+
+    .viewport {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+
+    .stage {
+      position: relative;
+      width: var(--stage-w);
+      height: var(--stage-h);
+      transform: scale(var(--scale));
+      transform-origin: center center;
+      background: radial-gradient(ellipse 80% 60% at 50% 40%, #0a1628 0%, #000000 100%);
+      overflow: hidden;
+    }
+
+    /* ---------- slides ---------- */
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 52px 64px 96px 64px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: opacity .45s cubic-bezier(.4, 0, .2, 1), transform .45s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .slide.active { opacity: 1; visibility: visible; transform: none; }
+
+    .slide::after {
+      content: "";
+      position: absolute;
+      top: -160px; left: 50%;
+      width: 900px; height: 620px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(41, 151, 255, .07) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .slide > * { position: relative; z-index: 1; }
+
+    /* ---------- typography ---------- */
+    h1, h2, h3, h4 {
+      font-family: var(--heading-font);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .eyebrow {
+      font-family: var(--heading-font);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .slide-title {
+      font-size: 42px;
+      letter-spacing: -0.03em;
+      background: linear-gradient(180deg, var(--fg) 0%, var(--muted) 130%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .slide-sub {
+      color: var(--muted);
+      font-size: 16px;
+      margin: 10px 0 0 0;
+      line-height: 1.5;
+    }
+
+    .slide-head { margin-bottom: 26px; flex: none; }
+
+    .body {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ---------- pills / chips ---------- */
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 980px;
+      background: rgba(41, 151, 255, .12);
+      border: 1px solid rgba(41, 151, 255, .22);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: var(--heading-font);
+      letter-spacing: .01em;
+    }
+
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      border-radius: 980px;
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--border);
+      color: rgba(245, 245, 247, .82);
+      font-size: 14px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .meta-chip b { color: #fff; font-weight: 500; }
+    .meta-chip .sep { color: rgba(245, 245, 247, .35); }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 980px;
+      font-size: 11px;
+      font-weight: 600;
+      font-family: var(--heading-font);
+      letter-spacing: .02em;
+      white-space: nowrap;
+    }
+    .tag.spotlight { background: rgba(255, 208, 138, .12); border: 1px solid rgba(255, 208, 138, .25); color: #ffd08a; }
+    .tag.oral { background: rgba(41, 151, 255, .14); border: 1px solid rgba(41, 151, 255, .28); color: #8dccff; }
+    .tag.poster { background: rgba(142, 240, 168, .1); border: 1px solid rgba(142, 240, 168, .22); color: #8ef0a8; }
+
+    /* ---------- cards ---------- */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 22px 24px;
+    }
+
+    .card h4 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.55; }
+
+    .topic-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 18px;
+      flex: 1;
+      max-height: 100%;
+    }
+
+    .topic-grid .card { padding: 24px 24px; display: flex; flex-direction: column; }
+    .topic-grid .card h4 { font-size: 17px; line-height: 1.25; }
+    .topic-grid .card p { font-size: 14px; }
+
+    .card-label {
+      font-family: var(--heading-font);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    /* ---------- title slide ---------- */
+    .hero { padding-top: 44px; align-items: center; text-align: center; }
+
+    .hero .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .18;
+      z-index: 0;
+    }
+
+    .hero .veil {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, .85) 100%);
+      z-index: 0;
+    }
+
+    .hero h1 {
+      font-size: 60px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      margin: 16px 0 0 0;
+      color: #f5f5f7;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, #2997ff 0%, #5ac8fa 50%, #64d2ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero .tagline {
+      color: var(--muted);
+      font-size: 20px;
+      letter-spacing: -0.01em;
+      margin: 16px 0 0 0;
+    }
+
+    .hero .chips { display: flex; gap: 12px; justify-content: center; margin-top: 18px; }
+
+    /* organizers strip (title slide only) */
+    .org-block { margin-top: 30px; width: 100%; }
+
+    .org-block .org-label {
+      font-family: var(--heading-font);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: rgba(245, 245, 247, .45);
+      margin-bottom: 14px;
+    }
+
+    .org-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px 10px;
+      max-width: 1060px;
+      margin: 0 auto;
+    }
+
+    .org {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .org img {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255, 255, 255, .12);
+      background: #1d1d1f;
+    }
+
+    .org .n { font-size: 12px; font-weight: 500; color: #f5f5f7; line-height: 1.2; }
+    .org .a { font-size: 10px; color: var(--muted); line-height: 1.25; max-width: 170px; }
+
+    /* ---------- schedule ---------- */
+    .agenda { display: flex; flex-direction: column; justify-content: center; }
+
+    .agenda-row {
+      display: grid;
+      grid-template-columns: 136px 1fr auto;
+      align-items: center;
+      gap: 18px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .agenda-row:last-child { border-bottom: none; }
+
+    .agenda-row time {
+      color: var(--accent);
+      font-weight: 500;
+      font-size: 15px;
+      font-variant-numeric: tabular-nums;
+      font-family: var(--heading-font);
+    }
+
+    .agenda-row .t { font-family: var(--heading-font); font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+    .agenda-row .t em { font-style: normal; color: var(--muted); font-weight: 400; font-size: 15px; }
+    .agenda-row .who { display: flex; align-items: center; gap: 9px; color: rgba(245, 245, 247, .85); font-size: 14px; }
+    .agenda-row .who img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 1px solid rgba(255, 255, 255, .14); }
+    .agenda-row.key { background: rgba(41, 151, 255, .07); border-bottom-color: rgba(41, 151, 255, .16); }
+    .agenda-row.soft { background: rgba(255, 255, 255, .02); }
+
+    /* ---------- speakers ---------- */
+    .speaker-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+
+    .speaker-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 40px 20px 34px 20px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .speaker-card img {
+      width: 185px; height: 185px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, .1);
+      background: #1d1d1f;
+    }
+
+    .speaker-card h4 { font-size: 24px; margin-top: 20px; }
+    .speaker-card .aff { color: var(--muted); font-size: 15px; margin: 8px 0 20px 0; line-height: 1.4; }
+    .speaker-card .slot {
+      display: inline-block;
+      margin-top: auto;
+      padding: 6px 16px;
+      border-radius: 980px;
+      background: rgba(41, 151, 255, .12);
+      border: 1px solid rgba(41, 151, 255, .22);
+      color: #8dccff;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* single keynote slide */
+    .keynote { display: grid; grid-template-columns: 380px 1fr; gap: 60px; align-items: center; }
+    .keynote .photo {
+      width: 380px; height: 380px;
+      border-radius: 28px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, .12);
+      background: #1d1d1f;
+    }
+    .keynote h2 { font-size: 52px; letter-spacing: -0.03em; margin-top: 20px; }
+    .keynote .aff { color: var(--fg); opacity: .8; font-size: 22px; margin-top: 14px; }
+    .keynote .link { color: var(--muted); font-size: 15px; margin-top: 20px; }
+    .keynote .fmt { display: flex; gap: 10px; margin-top: 26px; flex-wrap: wrap; }
+
+    /* single talk slide (one per lightning / oral talk) */
+    .talk { justify-content: center; }
+    .talk .talk-meta { display: flex; gap: 12px; align-items: center; margin-bottom: 28px; }
+    .talk .talk-title {
+      font-size: 44px;
+      font-weight: 700;
+      line-height: 1.18;
+      letter-spacing: -0.03em;
+      max-width: 1100px;
+    }
+    .talk .talk-authors {
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.5;
+      margin-top: 26px;
+      max-width: 1020px;
+    }
+    .talk .talk-step {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-family: var(--heading-font);
+      font-size: 120px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: rgba(255, 255, 255, .05);
+      pointer-events: none;
+    }
+
+    /* panel */
+    .panel-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 980px; margin: 0 auto; }
+    .panel-card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 32px 16px 26px 16px;
+      text-align: center;
+    }
+    .panel-card img {
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(255, 255, 255, .1);
+      background: #1d1d1f;
+    }
+    .panel-card h4 { font-size: 21px; margin-top: 18px; }
+    .panel-card .aff { color: var(--muted); font-size: 14px; margin-top: 8px; line-height: 1.35; }
+
+    .theme-row { display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap; justify-content: center; }
+    .theme {
+      padding: 9px 18px;
+      border-radius: 980px;
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid var(--border);
+      color: rgba(245, 245, 247, .78);
+      font-size: 14px;
+    }
+
+    /* panel question slides */
+    .panel-q {
+      justify-content: center;
+      max-width: 1080px;
+    }
+    .panel-q .q-meta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 36px;
+    }
+    .panel-q .q-num {
+      font-family: var(--heading-font);
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .panel-q .q-text {
+      font-family: var(--heading-font);
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.28;
+      letter-spacing: -0.025em;
+      color: var(--fg);
+    }
+    .panel-q .q-hint {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.45;
+    }
+
+    /* ---------- paper lists ---------- */
+    .papers { display: flex; flex-direction: column; gap: 8px; }
+
+    .paper {
+      display: grid;
+      grid-template-columns: 26px 1fr auto;
+      gap: 14px;
+      align-items: start;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .03);
+      border: 1px solid rgba(255, 255, 255, .05);
+      border-left: 2px solid var(--accent);
+    }
+
+    .paper .i { color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; padding-top: 2px; }
+    .paper .ti { font-size: 15px; font-weight: 500; line-height: 1.35; letter-spacing: -0.01em; }
+    .paper .au { color: var(--muted); font-size: 12.5px; margin-top: 3px; }
+    .paper.two-col-item { border-left-color: rgba(142, 240, 168, .5); }
+
+    .papers.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 18px; align-content: center; }
+    .papers.cols .paper { grid-template-columns: 24px 1fr; padding: 12px 15px; }
+    .papers.cols .paper .ti { font-size: 15px; }
+    .papers.cols .paper .au { font-size: 13px; }
+
+    .note {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(41, 151, 255, .12), rgba(255, 255, 255, .04));
+      border: 1px solid rgba(41, 151, 255, .18);
+      color: rgba(245, 245, 247, .85);
+      font-size: 13.5px;
+      line-height: 1.5;
+    }
+
+    /* ---------- big statement slides ---------- */
+    .center-slide { align-items: center; justify-content: center; text-align: center; }
+    .center-slide .big {
+      font-family: var(--heading-font);
+      font-size: 68px;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+    .center-slide .big span {
+      background: linear-gradient(135deg, #2997ff 0%, #5ac8fa 50%, #64d2ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .center-slide .sub { color: var(--muted); font-size: 22px; margin-top: 20px; }
+
+    /* awards */
+    .award-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: stretch; }
+    .award {
+      background: linear-gradient(135deg, rgba(41, 151, 255, .12), rgba(255, 255, 255, .04));
+      border: 1px solid rgba(41, 151, 255, .2);
+      border-radius: 22px;
+      padding: 40px 40px 44px 40px;
+    }
+    .award.plain { background: var(--card); border-color: var(--card-border); }
+    .award .k { font-family: var(--heading-font); font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    .award .v { font-family: var(--heading-font); font-size: 40px; font-weight: 700; letter-spacing: -0.03em; margin-top: 14px; }
+    .award .d { color: var(--muted); font-size: 16px; margin-top: 14px; line-height: 1.55; }
+    .award .fill { color: rgba(245, 245, 247, .55); font-size: 16px; margin-top: 20px; font-style: italic; }
+
+    .award.winner { padding: 44px 48px 48px 48px; }
+    .award.winner .winner-title {
+      font-family: var(--heading-font);
+      font-size: 38px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-top: 20px;
+      max-width: 1000px;
+    }
+    .award.winner .winner-authors {
+      color: rgba(245, 245, 247, .7);
+      font-size: 19px;
+      margin-top: 20px;
+    }
+
+    /* big sponsors on closing slide */
+    .sponsor-cards { display: flex; gap: 26px; justify-content: center; margin-top: 34px; }
+    .sponsor-cards .sc {
+      background: #ffffff;
+      border-radius: 18px;
+      width: 320px;
+      height: 168px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 26px;
+    }
+    .sponsor-cards .sc img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    .sponsor-cards .sc.dp { background: #0f0923; padding: 0; overflow: hidden; width: 220px; }
+    .sponsor-cards .sc.dp img { height: 100%; width: auto; }
+
+    /* ---------- per-slide footer (sponsors on every slide) ---------- */
+    .deck-footer {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 74px;
+      padding: 0 40px 0 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .55) 100%);
+      z-index: 5;
+    }
+
+    .deck-footer .brand {
+      font-family: var(--heading-font);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(245, 245, 247, .5);
+      white-space: nowrap;
+    }
+
+    .deck-footer .sponsors { display: flex; align-items: center; gap: 12px; }
+
+    .deck-footer .sp-label {
+      font-family: var(--heading-font);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245, 245, 247, .35);
+      white-space: nowrap;
+    }
+
+    .deck-footer .chip {
+      background: #fff;
+      border-radius: 10px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 12px;
+    }
+    .deck-footer .chip img { max-height: 26px; width: auto; }
+    .deck-footer .chip.dp { padding: 0; overflow: hidden; width: 44px; }
+    .deck-footer .chip.dp img { max-height: none; height: 44px; }
+
+    .deck-footer .idx {
+      font-family: var(--heading-font);
+      font-size: 12px;
+      color: rgba(245, 245, 247, .4);
+      font-variant-numeric: tabular-nums;
+      min-width: 46px;
+      text-align: right;
+    }
+
+    .deck-footer .timer {
+      font-family: var(--heading-font);
+      font-size: 13px;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      display: none;
+    }
+    body.timer-on .deck-footer .timer { display: block; }
+
+    /* ---------- chrome: progress + nav + jump list ---------- */
+    .progress {
+      position: absolute;
+      top: 0; left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #2997ff, #64d2ff);
+      z-index: 20;
+      transition: width .35s ease;
+    }
+
+    .nav {
+      position: fixed;
+      right: 18px; bottom: 16px;
+      display: flex;
+      gap: 8px;
+      z-index: 50;
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+    .viewport:hover .nav { opacity: 1; }
+
+    .nav button {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, .14);
+      background: rgba(29, 29, 31, .8);
+      color: #f5f5f7;
+      font-size: 15px;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+    }
+    .nav button:hover { background: rgba(41, 151, 255, .3); }
+
+    .jump {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .88);
+      backdrop-filter: blur(18px);
+      z-index: 100;
+      display: none;
+      padding: 44px 60px;
+      overflow: auto;
+    }
+    .jump.open { display: block; }
+    .jump h3 { font-size: 22px; margin-bottom: 20px; }
+    .jump ol { list-style: none; padding: 0; margin: 0; columns: 2; column-gap: 48px; }
+    .jump li {
+      padding: 9px 14px;
+      border-radius: 10px;
+      color: rgba(245, 245, 247, .8);
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      gap: 14px;
+      break-inside: avoid;
+    }
+    .jump li:hover { background: rgba(41, 151, 255, .18); color: #fff; }
+    .jump li span { color: var(--muted); font-variant-numeric: tabular-nums; min-width: 22px; }
+    .jump .hint { color: var(--muted); font-size: 13px; margin-top: 24px; }
+
+    /* ---------- print / PDF export ---------- */
+    @media print {
+      @page { size: 1280px 720px; margin: 0; }
+      html, body { overflow: visible; background: #000; height: auto; }
+      .viewport { position: static; display: block; }
+      .stage { transform: none; width: 1280px; height: auto; overflow: visible; background: #000; }
+      .slide {
+        position: relative;
+        inset: auto;
+        width: 1280px;
+        height: 720px;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        page-break-after: always;
+        break-after: page;
+        background: radial-gradient(ellipse 80% 60% at 50% 40%, #0a1628 0%, #000000 100%);
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .nav, .jump, .progress { display: none !important; }
+
+      /* background-clip:text is unreliable in the PDF rasterizer — fall back to solid fills */
+      .hero h1 span,
+      .center-slide .big span {
+        background: none;
+        -webkit-text-fill-color: #5ac8fa;
+        color: #5ac8fa;
+      }
+
+      .slide-title {
+        background: none;
+        -webkit-text-fill-color: var(--fg);
+        color: var(--fg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="viewport" id="viewport">
+    <div class="stage" id="stage">
+      <div class="progress" id="progress" style="width:0"></div>
+
+      <!-- ============ 1. TITLE + ORGANIZERS ============ -->
+      <section class="slide hero" data-title="Title &amp; Organizing Committee">
+        <img class="hero-bg" src="assets/img/bg.jpg" alt="">
+        <div class="veil"></div>
+
+        <div class="badge">KDD 2026 Workshop</div>
+        <h1>Reliable Scientific<br><span>Foundation Models</span></h1>
+        <p class="tagline">Design · Training · Grounding · Verification</p>
+
+        <div class="chips">
+          <div class="meta-chip"><b>August 10, 2026</b><span class="sep">·</span><span>1:00 – 5:00 PM</span></div>
+          <div class="meta-chip">ICC Jeju · Jeju, Korea</div>
+          <div class="meta-chip">kdd26-relscifm.github.io</div>
+        </div>
+
+        <div class="org-block">
+          <div class="org-label">Organizing Committee</div>
+          <div class="org-grid">
+            <div class="org"><img src="assets/img/organizers/yuehuang.jpg" alt="Yue Huang"><div class="n">Yue Huang</div><div class="a">University of Notre Dame</div></div>
+            <div class="org"><img src="assets/img/organizers/xiaodawang.jpg" alt="Xiaoda Wang"><div class="n">Xiaoda Wang</div><div class="a">Emory University</div></div>
+            <div class="org"><img src="assets/img/organizers/yccm.jpeg" alt="Yuchen Ma"><div class="n">Yuchen Ma</div><div class="a">LMU Munich</div></div>
+            <div class="org"><img src="assets/img/organizers/kehanguo.jpg" alt="Kehan Guo"><div class="n">Kehan Guo</div><div class="a">University of Notre Dame</div></div>
+            <div class="org"><img src="assets/img/organizers/yujunzhou.jpg" alt="Yujun Zhou"><div class="n">Yujun Zhou</div><div class="a">University of Notre Dame</div></div>
+            <div class="org"><img src="assets/img/organizers/qiankun.jpg" alt="Qiankun Li"><div class="n">Qiankun Li</div><div class="a">Imperial College London · NTU</div></div>
+            <div class="org"><img src="assets/img/organizers/yuanli.jpg" alt="Yuan Li"><div class="n">Yuan Li</div><div class="a">UPenn</div></div>
+            <div class="org"><img src="assets/img/organizers/weiwang.png" alt="Wei Wang"><div class="n">Wei Wang</div><div class="a">UCLA</div></div>
+            <div class="org"><img src="assets/img/organizers/carlyang.jpeg" alt="Carl Yang"><div class="n">Carl Yang</div><div class="a">Emory University</div></div>
+            <div class="org"><img src="assets/img/organizers/xiangliang.jpg" alt="Xiangliang Zhang"><div class="n">Xiangliang Zhang</div><div class="a">University of Notre Dame</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 2. ABOUT ============ -->
+      <section class="slide" data-title="About RelSciFM">
+        <div class="slide-head">
+          <div class="eyebrow">Welcome</div>
+          <h2 class="slide-title">About RelSciFM</h2>
+        </div>
+
+        <div class="body">
+          <p style="font-size:22px; line-height:1.6; color:rgba(245,245,247,.92); margin:0 0 20px 0; max-width:1120px;">
+            RelSciFM focuses on building <b style="font-weight:600;">reliable Scientific Foundation Models (SciFMs)</b> for scientific discovery
+            and high-stakes decision-making. The workshop emphasizes design and training, grounding to scientific evidence, and
+            verification protocols that make model claims <b style="font-weight:600;">auditable and replayable</b>.
+          </p>
+          <p style="font-size:18px; line-height:1.6; color:var(--muted); margin:0 0 36px 0; max-width:1120px;">
+            We bring together researchers and practitioners across data mining, machine learning, and domain sciences to share
+            methods, datasets, benchmarks, and best practices for reliable, grounded, and verifiable SciFMs.
+          </p>
+
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px;">
+            <div class="card" style="padding:26px 26px;"><div class="card-label">Where</div><h4>ICC Jeju</h4><p>International Convention Center Jeju, Jeju, Korea</p></div>
+            <div class="card" style="padding:26px 26px;"><div class="card-label">When</div><h4>August 10, 2026</h4><p>1:00 PM – 5:00 PM (half day)</p></div>
+            <div class="card" style="padding:26px 26px;"><div class="card-label">Program</div><h4>3 keynotes · 1 panel</h4><p>4 oral talks, 6 spotlight talks, 9 posters</p></div>
+            <div class="card" style="padding:26px 26px;"><div class="card-label">Policy</div><h4>Non-archival</h4><p>Double-blind review; accepted papers made public</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 3. TOPICS ============ -->
+      <section class="slide" data-title="Overview — Topics">
+        <div class="slide-head">
+          <div class="eyebrow">Overview</div>
+          <h2 class="slide-title">Topics</h2>
+          <p class="slide-sub">Key themes and questions we explore at RelSciFM.</p>
+        </div>
+
+        <div class="body">
+          <div class="topic-grid">
+            <div class="card"><h4>Architecture Design with Scientific Priors</h4><p>Inductive biases for invariances, conservation laws, units, and geometry</p></div>
+            <div class="card"><h4>Evidence Grounding and Provenance</h4><p>Retrieval over databases and knowledge graphs with explicit attribution</p></div>
+            <div class="card"><h4>Tool- and Simulator-Integrated Modeling</h4><p>Reliable interfaces to simulators, solvers, and symbolic engines</p></div>
+            <div class="card"><h4>Reliable Data and Pretraining</h4><p>Curation for quality and coverage; robust objectives under shift</p></div>
+            <div class="card"><h4>Uncertainty and Risk Control</h4><p>Calibration, abstention/defer, and risk–coverage trade-offs</p></div>
+            <div class="card"><h4>Validity, Robustness, and Stress Tests</h4><p>Constraint checks, invariance tests, closed-loop tool validation</p></div>
+            <div class="card"><h4>Reproducibility and Auditing</h4><p>Versioned pipelines, seed capture, and tool-trace logs</p></div>
+            <div class="card"><h4>Benchmarks and Community Testbeds</h4><p>Reliability-focused benchmarks and shared evaluation harnesses</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ KEYNOTE SPEAKERS OVERVIEW ============ -->
+      <section class="slide" data-title="Invited Keynote Speakers">
+        <div class="slide-head">
+          <div class="eyebrow">Speakers</div>
+          <h2 class="slide-title">Invited Keynote Speakers</h2>
+        </div>
+
+        <div class="body">
+          <div class="speaker-grid">
+            <div class="speaker-card">
+              <img src="assets/img/speakers/yuan_fang.jpg" alt="Yuan Fang" style="object-position: center 30%;">
+              <h4>Yuan Fang</h4>
+              <div class="aff">Singapore Management University</div>
+              <div class="slot">Keynote 1 · 1:05 – 1:25 PM</div>
+            </div>
+            <div class="speaker-card">
+              <img src="assets/img/speakers/gang_liu.png" alt="Gang Liu" style="object-position: center 18%;">
+              <h4>Gang Liu</h4>
+              <div class="aff">City University of Hong Kong</div>
+              <div class="slot">Keynote 2 · 2:55 – 3:15 PM</div>
+            </div>
+            <div class="speaker-card">
+              <img src="assets/img/speakers/liang_zhao.jpg" alt="Liang Zhao">
+              <h4>Liang Zhao</h4>
+              <div class="aff">Emory University</div>
+              <div class="slot">Keynote 3 · 3:55 – 4:15 PM</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ PROGRAM ============ -->
+      <section class="slide" data-title="Program at a Glance">
+        <div class="slide-head" style="margin-bottom:8px;">
+          <div class="eyebrow">Program</div>
+          <h2 class="slide-title">Event Schedule</h2>
+          <p class="slide-sub">August 10, 2026 · 1:00 PM – 5:00 PM · ICC Jeju</p>
+        </div>
+
+        <div class="body agenda">
+          <div class="agenda-row">
+            <time>1:00 – 1:05</time>
+            <div class="t">Opening Remarks</div>
+            <div class="who"></div>
+          </div>
+          <div class="agenda-row key">
+            <time>1:05 – 1:25</time>
+            <div class="t">Keynote Talk 1 <em>— 15 min talk + 5 min Q&amp;A</em></div>
+            <div class="who"><img src="assets/img/speakers/yuan_fang.jpg" alt="" style="object-position: center 30%;">Yuan Fang</div>
+          </div>
+          <div class="agenda-row">
+            <time>1:25 – 2:25</time>
+            <div class="t">AI4Sciences Track Lightning Talks <em>— 6 papers × 10 min</em></div>
+            <div class="who"></div>
+          </div>
+          <div class="agenda-row soft">
+            <time>2:25 – 2:55</time>
+            <div class="t">Coffee Break &amp; Poster Session <em>— 9 posters</em></div>
+            <div class="who"></div>
+          </div>
+          <div class="agenda-row key">
+            <time>2:55 – 3:15</time>
+            <div class="t">Keynote Talk 2 <em>— 15 min talk + 5 min Q&amp;A</em></div>
+            <div class="who"><img src="assets/img/speakers/gang_liu.png" alt="" style="object-position: center 18%;">Gang Liu</div>
+          </div>
+          <div class="agenda-row">
+            <time>3:15 – 3:55</time>
+            <div class="t">Workshop Oral Talks <em>— 4 papers × 10 min</em></div>
+            <div class="who"></div>
+          </div>
+          <div class="agenda-row key">
+            <time>3:55 – 4:15</time>
+            <div class="t">Keynote Talk 3 <em>— 15 min talk + 5 min Q&amp;A</em></div>
+            <div class="who"><img src="assets/img/speakers/liang_zhao.jpg" alt="">Liang Zhao</div>
+          </div>
+          <div class="agenda-row">
+            <time>4:15 – 4:55</time>
+            <div class="t">Panel Discussion <em>— 3 panelists</em></div>
+            <div class="who"></div>
+          </div>
+          <div class="agenda-row">
+            <time>4:55 – 5:00</time>
+            <div class="t">Best Paper Award &amp; Closing Remarks</div>
+            <div class="who"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 1:05 KEYNOTE 1 ============ -->
+      <section class="slide" data-title="Keynote 1 — Yuan Fang">
+        <div class="body keynote">
+          <img class="photo" src="assets/img/speakers/yuan_fang.jpg" alt="Yuan Fang" style="object-position: center 30%;">
+          <div>
+            <div class="badge">Keynote Talk 1 · 1:05 – 1:25 PM</div>
+            <h2>Yuan Fang</h2>
+            <div class="aff">Singapore Management University</div>
+            <div class="fmt">
+              <div class="meta-chip">15 min talk</div>
+              <div class="meta-chip">5 min Q&amp;A</div>
+            </div>
+            <div class="link">yfang.site</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 1:25 LIGHTNING TALKS ============ -->
+      <section class="slide" data-title="AI4Sciences Track Lightning Talks">
+        <div class="slide-head" style="margin-bottom:16px;">
+          <div class="eyebrow">1:25 – 2:25 PM · 6 papers × 10 min</div>
+          <h2 class="slide-title">AI4Sciences Track Lightning Talks</h2>
+        </div>
+
+        <div class="body">
+          <div class="papers">
+            <div class="paper">
+              <div class="i">1</div>
+              <div><div class="ti">SpectrumWorld: Artificial Intelligence Foundation for Spectroscopy</div><div class="au">Zhuo Yang, Jiaqing Xie, Shuaike Shen, et al.</div></div>
+              <div class="tag spotlight">Spotlight</div>
+            </div>
+            <div class="paper">
+              <div class="i">2</div>
+              <div><div class="ti">Machine Learning for Depression Screening and Intervention: an Original Circadian Rhythm Score-based Methodology</div><div class="au">Bin Wang, Shuo Lian, Yuanyuan Hou, et al.</div></div>
+              <div class="tag spotlight">Spotlight</div>
+            </div>
+            <div class="paper">
+              <div class="i">3</div>
+              <div><div class="ti">Deformation Localization Theory Guided Transfer Learning for Mining-induced Seismicity Risk Zone Prediction</div><div class="au">Linlin Ding, Chenli Zhu, Yuda Li, et al.</div></div>
+              <div class="tag spotlight">Spotlight</div>
+            </div>
+            <div class="paper">
+              <div class="i">4</div>
+              <div><div class="ti">Learning Probabilistic Compositional Representation of Crystalline Materials</div><div class="au">Namkyeong Lee, Heewoong Noh, Gyoung S. Na, et al.</div></div>
+              <div class="tag spotlight">Spotlight</div>
+            </div>
+            <div class="paper">
+              <div class="i">5</div>
+              <div><div class="ti">Trustworthy Protein-Ligand Binding Affinity Prediction via Reliability-Aware Multi-Engine Fusion</div><div class="au">Yongchan Hong, Defu Cao, Wenjin Liu, et al.</div></div>
+              <div class="tag spotlight">Spotlight</div>
+            </div>
+            <div class="paper">
+              <div class="i">6</div>
+              <div><div class="ti">MemNovo: Look Back at the Spectrum for Balanced De Novo Peptide Sequencing from Mass Spectrometry</div><div class="au">Dongxin Lyu, Jingbo Zhou, Hongxin Xiang, et al.</div></div>
+              <div class="tag spotlight">Spotlight</div>
+            </div>
+          </div>
+
+          <div class="note">
+            RelSciFM is collaborating with the <b>KDD 2026 AI for Sciences Track</b> to offer spotlight talk
+            opportunities for accepted papers from the track.
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Lightning 1 — SpectrumWorld">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Lightning Talk 1 of 6</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">SpectrumWorld: Artificial Intelligence Foundation for Spectroscopy</h2>
+          <div class="talk-authors">Zhuo Yang, Jiaqing Xie, Shuaike Shen, Daolang Wang, Yeyun Chen, Ben Gao, Shuzhou Sun, Biqing Qi, Dongzhan Zhou, Lei Bai, Shufei Zhang, Qinying Gu, Linjiang Chen, Jun Jiang, Tianfan Fu, Yuqiang Li</div>
+          <div class="talk-step">1</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Lightning 2 — Depression Screening">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Lightning Talk 2 of 6</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">Machine Learning for Depression Screening and Intervention: an Original Circadian Rhythm Score-based Methodology</h2>
+          <div class="talk-authors">Bin Wang, Shuo Lian, Yuanyuan Hou, Dexian Wang, Peilan He, Feng Hong, Yanwei Yu, Tianrui Li</div>
+          <div class="talk-step">2</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Lightning 3 — Mining-induced Seismicity">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Lightning Talk 3 of 6</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">Deformation Localization Theory Guided Transfer Learning for Mining-induced Seismicity Risk Zone Prediction</h2>
+          <div class="talk-authors">Linlin Ding, Chenli Zhu, Yuda Li, Aina Wang, Yishan Pan, Xin Wang</div>
+          <div class="talk-step">3</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Lightning 4 — Crystalline Materials">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Lightning Talk 4 of 6</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">Learning Probabilistic Compositional Representation of Crystalline Materials</h2>
+          <div class="talk-authors">Namkyeong Lee, Heewoong Noh, Gyoung S. Na, Jimeng Sun, Tianfan Fu, Marinka Zitnik, Chanyoung Park</div>
+          <div class="talk-step">4</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Lightning 5 — Protein-Ligand Binding">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Lightning Talk 5 of 6</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">Trustworthy Protein-Ligand Binding Affinity Prediction via Reliability-Aware Multi-Engine Fusion</h2>
+          <div class="talk-authors">Yongchan Hong, Defu Cao, Wenjin Liu, Thomas Ku, Jordy Homing Lam, Emily Nguyen, Willie Neiswanger, Vsevolod Katritch, Yan Liu</div>
+          <div class="talk-step">5</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Lightning 6 — MemNovo">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Lightning Talk 6 of 6</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">MemNovo: Look Back at the Spectrum for Balanced De Novo Peptide Sequencing from Mass Spectrometry</h2>
+          <div class="talk-authors">Dongxin Lyu, Jingbo Zhou, Hongxin Xiang, Yuqiang Li, Jun Xia</div>
+          <div class="talk-step">6</div>
+        </div>
+      </section>
+
+      <!-- ============ 2:25 BREAK ============ -->
+      <section class="slide center-slide" data-title="Coffee Break &amp; Poster Session">
+        <div class="badge">2:25 – 2:55 PM</div>
+        <div class="big" style="margin-top:22px;">Coffee Break<br>&amp; <span>Poster Session</span></div>
+        <div class="sub">9 posters on display · We resume with Keynote 2 at 2:55 PM</div>
+      </section>
+
+      <!-- ============ 11. POSTERS ============ -->
+      <section class="slide" data-title="Poster Session — 9 posters">
+        <div class="slide-head" style="margin-bottom:16px;">
+          <div class="eyebrow">2:25 – 2:55 PM · Poster Session</div>
+          <h2 class="slide-title">Accepted Posters</h2>
+        </div>
+
+        <div class="body">
+          <div class="papers cols">
+            <div class="paper two-col-item"><div class="i">1</div><div><div class="ti">Rough Paths to Certified Reliability</div><div class="au">Gordei Verbii</div></div></div>
+            <div class="paper two-col-item"><div class="i">2</div><div><div class="ti">Temporal Causal Graph Retrieval Under Distribution Shift in Financial Markets</div><div class="au">Keshav Gupta</div></div></div>
+            <div class="paper two-col-item"><div class="i">3</div><div><div class="ti">SciReview: A Reliability Benchmark for Frontier LLMs on Conceptual Scientific Errors</div><div class="au">Sushant Mehta</div></div></div>
+            <div class="paper two-col-item"><div class="i">4</div><div><div class="ti">KGLA: Knowledge Graph Enhanced Language Agents for Recommendation</div><div class="au">Taicheng Guo, Chaochun Liu, Hai Wang, et al.</div></div></div>
+            <div class="paper two-col-item"><div class="i">5</div><div><div class="ti">BCoughBench: Benchmarking Respiratory Acoustic Foundation Models Under Body-Coupled Wearable Sensor Conditions</div><div class="au">Mayur Sanap, Prasanna Desikan, Edgar Lobaton</div></div></div>
+            <div class="paper two-col-item"><div class="i">6</div><div><div class="ti">Trustworthy Medical Multimodal Large Language Models: A Survey of Taxonomy, Evaluation, and Benchmarks</div><div class="au">Qiankun Li, Junyuan Mao, JinYue Li, et al.</div></div></div>
+            <div class="paper two-col-item"><div class="i">7</div><div><div class="ti">Self-Improving Agent Factories for Paper Review: When Constrained Beats Open-Ended</div><div class="au">Lele Cao</div></div></div>
+            <div class="paper two-col-item"><div class="i">8</div><div><div class="ti">Adaptive Graph Rewiring to Mitigate Over-Squashing in Mesh-Based GNNs for Fluid Dynamics Simulations</div><div class="au">Sangwoo Seo, Hyunsung Kim, Jiwan Kim, et al.</div></div></div>
+            <div class="paper two-col-item"><div class="i">9</div><div><div class="ti">Adopt Machine-Human Collaboration Peer-Review through Computational Research Assessment</div><div class="au">Lele Cao, Lei You</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 2:55 KEYNOTE 2 ============ -->
+      <section class="slide" data-title="Keynote 2 — Gang Liu">
+        <div class="body keynote">
+          <img class="photo" src="assets/img/speakers/gang_liu.png" alt="Gang Liu" style="object-position: center 18%;">
+          <div>
+            <div class="badge">Keynote Talk 2 · 2:55 – 3:15 PM</div>
+            <h2>Gang Liu</h2>
+            <div class="aff">City University of Hong Kong</div>
+            <div class="fmt">
+              <div class="meta-chip">15 min talk</div>
+              <div class="meta-chip">5 min Q&amp;A</div>
+            </div>
+            <div class="link">liugangcode.github.io</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 3:15 ORAL TALKS ============ -->
+      <section class="slide" data-title="Workshop Oral Talks">
+        <div class="slide-head" style="margin-bottom:18px;">
+          <div class="eyebrow">3:15 – 3:55 PM · 4 papers × 10 min</div>
+          <h2 class="slide-title">Workshop Oral Talks</h2>
+        </div>
+
+        <div class="body">
+          <div class="papers">
+            <div class="paper" style="padding:14px 16px;">
+              <div class="i">1</div>
+              <div><div class="ti" style="font-size:17px;">ProSAM: Modular and Energy-Guided Fine-Tuning of Protein Language Models for Structure Prediction</div><div class="au" style="font-size:13px;">Yiyang Zheng, Zhiguo Tao</div></div>
+              <div class="tag oral">Oral</div>
+            </div>
+            <div class="paper" style="padding:14px 16px;">
+              <div class="i">2</div>
+              <div><div class="ti" style="font-size:17px;">Interactive Benchmarking of Scientific Coding Agents for Spatial Transcriptomics Alignment</div><div class="au" style="font-size:13px;">Yiqun T. Chen</div></div>
+              <div class="tag oral">Oral</div>
+            </div>
+            <div class="paper" style="padding:14px 16px;">
+              <div class="i">3</div>
+              <div><div class="ti" style="font-size:17px;">Tokenizing Antibody–Antigen Complex Structures via Energy-Based Surrogates</div><div class="au" style="font-size:13px;">Junseok Lee, Yunhak Oh, Namkyeong Lee, Hyunchul Kim, Chanyoung Park</div></div>
+              <div class="tag oral">Oral</div>
+            </div>
+            <div class="paper" style="padding:14px 16px;">
+              <div class="i">4</div>
+              <div><div class="ti" style="font-size:17px;">Physics-Embedded Graph Neural Operator for Interaction-Controlled Colloidal Aggregation</div><div class="au" style="font-size:13px;">Yongjoon Choe, Sungwon Kim, Susan E. Burns, Chanyoung Park</div></div>
+              <div class="tag oral">Oral</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Oral 1 — ProSAM">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Oral Talk 1 of 4</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">ProSAM: Modular and Energy-Guided Fine-Tuning of Protein Language Models for Structure Prediction</h2>
+          <div class="talk-authors">Yiyang Zheng, Zhiguo Tao</div>
+          <div class="talk-step">1</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Oral 2 — Scientific Coding Agents">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Oral Talk 2 of 4</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">Interactive Benchmarking of Scientific Coding Agents for Spatial Transcriptomics Alignment</h2>
+          <div class="talk-authors">Yiqun T. Chen</div>
+          <div class="talk-step">2</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Oral 3 — Antibody–Antigen Tokenization">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Oral Talk 3 of 4</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">Tokenizing Antibody–Antigen Complex Structures via Energy-Based Surrogates</h2>
+          <div class="talk-authors">Junseok Lee, Yunhak Oh, Namkyeong Lee, Hyunchul Kim, Chanyoung Park</div>
+          <div class="talk-step">3</div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Oral 4 — Colloidal Aggregation">
+        <div class="body talk">
+          <div class="talk-meta">
+            <div class="badge">Oral Talk 4 of 4</div>
+            <div class="meta-chip">10 min</div>
+          </div>
+          <h2 class="talk-title">Physics-Embedded Graph Neural Operator for Interaction-Controlled Colloidal Aggregation</h2>
+          <div class="talk-authors">Yongjoon Choe, Sungwon Kim, Susan E. Burns, Chanyoung Park</div>
+          <div class="talk-step">4</div>
+        </div>
+      </section>
+
+      <!-- ============ 3:55 KEYNOTE 3 ============ -->
+      <section class="slide" data-title="Keynote 3 — Liang Zhao">
+        <div class="body keynote">
+          <img class="photo" src="assets/img/speakers/liang_zhao.jpg" alt="Liang Zhao">
+          <div>
+            <div class="badge">Keynote Talk 3 · 3:55 – 4:15 PM</div>
+            <h2>Liang Zhao</h2>
+            <div class="aff">Emory University</div>
+            <div class="fmt">
+              <div class="meta-chip">15 min talk</div>
+              <div class="meta-chip">5 min Q&amp;A</div>
+            </div>
+            <div class="link">cs.emory.edu/~lzhao41</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 4:15 PANEL ============ -->
+      <section class="slide" data-title="Panel Discussion">
+        <div class="slide-head">
+          <div class="eyebrow">4:15 – 4:55 PM</div>
+          <h2 class="slide-title">Panel Discussion</h2>
+        </div>
+
+        <div class="body">
+          <div class="panel-grid">
+            <div class="panel-card">
+              <img src="assets/img/speakers/hangwei.jpg" alt="Hangwei Qian">
+              <h4>Hangwei Qian</h4>
+              <div class="aff">A*STAR</div>
+            </div>
+            <div class="panel-card">
+              <img src="assets/img/speakers/chang.jpg" alt="Chang Xu">
+              <h4>Chang Xu</h4>
+              <div class="aff">Microsoft Research</div>
+            </div>
+            <div class="panel-card">
+              <img src="assets/img/organizers/xiangliang.jpg" alt="Xiangliang Zhang">
+              <h4>Xiangliang Zhang</h4>
+              <div class="aff">University of Notre Dame</div>
+            </div>
+          </div>
+
+          <div class="theme-row">
+            <div class="theme">Evidence grounding</div>
+            <div class="theme">Verification &amp; reproducibility</div>
+            <div class="theme">Uncertainty &amp; risk</div>
+            <div class="theme">Benchmarks &amp; testbeds</div>
+            <div class="theme">Academia ↔ industry</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide panel-q" data-title="Panel Q1 — Reliability Evidence">
+        <div class="q-meta">
+          <div class="badge">Panel Discussion</div>
+          <div class="meta-chip">Question 1 / 6</div>
+        </div>
+        <div class="q-num">Q1</div>
+        <div class="q-text" style="margin-top:18px;">When you say that a scientific foundation model is reliable, what is the minimum evidence you would require before allowing it to influence a real scientific decision?</div>
+        <div class="q-hint">Could you give one concrete example from your own domain?</div>
+      </section>
+
+      <section class="slide panel-q" data-title="Panel Q2 — Failure Modes">
+        <div class="q-meta">
+          <div class="badge">Panel Discussion</div>
+          <div class="meta-chip">Question 2 / 6</div>
+        </div>
+        <div class="q-num">Q2</div>
+        <div class="q-text" style="margin-top:18px;">Which failure mode is more dangerous in scientific AI: a confidently wrong answer, a correct answer reached for the wrong reason, or a model that abstains too often?</div>
+      </section>
+
+      <section class="slide panel-q" data-title="Panel Q3 — General vs Specialized">
+        <div class="q-meta">
+          <div class="badge">Panel Discussion</div>
+          <div class="meta-chip">Question 3 / 6</div>
+        </div>
+        <div class="q-num">Q3</div>
+        <div class="q-text" style="margin-top:18px;">Should the community aim for one broadly general scientific foundation model, or a family of domain-specialized models?</div>
+        <div class="q-hint">What, if anything, can reliably transfer across scientific domains?</div>
+      </section>
+
+      <section class="slide panel-q" data-title="Panel Q4 — Where Knowledge Enters">
+        <div class="q-meta">
+          <div class="badge">Panel Discussion</div>
+          <div class="meta-chip">Question 4 / 6</div>
+        </div>
+        <div class="q-num">Q4</div>
+        <div class="q-text" style="margin-top:18px;">Where should scientific knowledge enter a foundation model most effectively: in the architecture, the training objective, external tools and simulators, or the verification stage?</div>
+      </section>
+
+      <section class="slide panel-q" data-title="Panel Q5 — Benchmark vs Deployment">
+        <div class="q-meta">
+          <div class="badge">Panel Discussion</div>
+          <div class="meta-chip">Question 5 / 6</div>
+        </div>
+        <div class="q-num">Q5</div>
+        <div class="q-text" style="margin-top:18px;">What is one result that may look impressive on an academic benchmark but would still not convince you to deploy the model in a real scientific workflow?</div>
+      </section>
+
+      <section class="slide panel-q" data-title="Panel Q6 — Agent Autonomy">
+        <div class="q-meta">
+          <div class="badge">Panel Discussion</div>
+          <div class="meta-chip">Question 6 / 6</div>
+        </div>
+        <div class="q-num">Q6</div>
+        <div class="q-text" style="margin-top:18px;">How much autonomy should we give scientific agents today?</div>
+        <div class="q-hint">Which parts of the scientific workflow can be automated safely, and which parts should still require explicit human approval?</div>
+      </section>
+
+      <!-- ============ 14. AWARDS ============ -->
+      <section class="slide" data-title="Best Paper Award">
+        <div class="slide-head">
+          <div class="eyebrow">4:55 – 5:00 PM</div>
+          <h2 class="slide-title">Awards &amp; Closing</h2>
+        </div>
+
+        <div class="body">
+          <div class="award winner">
+            <div class="k">Best Paper Award · $300, sponsored by Tencent</div>
+            <div class="winner-title">Physics-Embedded Graph Neural Operator for Interaction-Controlled Colloidal Aggregation</div>
+            <div class="winner-authors">Yongjoon Choe, Sungwon Kim, Susan E. Burns, Chanyoung Park</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Outstanding Paper 1">
+        <div class="slide-head">
+          <div class="eyebrow">4:55 – 5:00 PM</div>
+          <h2 class="slide-title">Awards &amp; Closing</h2>
+        </div>
+
+        <div class="body">
+          <div class="award winner">
+            <div class="k">Outstanding Paper Award · 1 of 2</div>
+            <div class="winner-title">Trustworthy Protein-Ligand Binding Affinity Prediction via Reliability-Aware Multi-Engine Fusion</div>
+            <div class="winner-authors">Yongchan Hong, Defu Cao, Wenjin Liu, Thomas Ku, Jordy Homing Lam, Emily Nguyen, Willie Neiswanger, Vsevolod Katritch, Yan Liu</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-title="Outstanding Paper 2">
+        <div class="slide-head">
+          <div class="eyebrow">4:55 – 5:00 PM</div>
+          <h2 class="slide-title">Awards &amp; Closing</h2>
+        </div>
+
+        <div class="body">
+          <div class="award winner">
+            <div class="k">Outstanding Paper Award · 2 of 2</div>
+            <div class="winner-title">MemNovo: Look Back at the Spectrum for Balanced De Novo Peptide Sequencing from Mass Spectrometry</div>
+            <div class="winner-authors">Dongxin Lyu, Jingbo Zhou, Hongxin Xiang, Yuqiang Li, Jun Xia</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ 15. THANK YOU + SPONSORS ============ -->
+      <section class="slide center-slide" data-title="Thank You &amp; Sponsors">
+        <div class="big">Thank <span>You</span></div>
+        <div class="sub">RelSciFM @ KDD 2026 · kdd26-relscifm.github.io</div>
+
+        <div style="margin-top:38px;">
+          <div style="font-family:var(--heading-font); font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:rgba(245,245,247,.45);">
+            With generous support from
+          </div>
+          <div class="sponsor-cards">
+            <div class="sc"><img src="assets/img/sponsors/tencent.png" alt="Tencent"></div>
+            <div class="sc dp"><img src="assets/img/sponsors/deepprinciple.jpeg" alt="Deep Principle"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- footer template cloned into every slide -->
+      <template id="footer-tpl">
+        <footer class="deck-footer">
+          <div class="brand">RelSciFM @ KDD 2026</div>
+          <div class="sponsors">
+            <div class="sp-label">Sponsors</div>
+            <div class="chip"><img src="assets/img/sponsors/tencent.png" alt="Tencent"></div>
+            <div class="chip dp"><img src="assets/img/sponsors/deepprinciple.jpeg" alt="Deep Principle"></div>
+            <div class="timer">00:00</div>
+            <div class="idx"></div>
+          </div>
+        </footer>
+      </template>
+    </div>
+
+    <div class="nav">
+      <button id="btn-prev" title="Previous (←)">‹</button>
+      <button id="btn-jump" title="Slide list (o)">☰</button>
+      <button id="btn-next" title="Next (→)">›</button>
+    </div>
+  </div>
+
+  <div class="jump" id="jump">
+    <h3>Slides</h3>
+    <ol id="jump-list"></ol>
+    <div class="hint">← / → or Space to navigate · o for this list · f fullscreen · t timer (r to reset) · Esc to close</div>
+  </div>
+
+  <script>
+    (function () {
+      const stage = document.getElementById('stage');
+      const slides = Array.from(stage.querySelectorAll('.slide'));
+      const progress = document.getElementById('progress');
+      const jump = document.getElementById('jump');
+      const jumpList = document.getElementById('jump-list');
+      const tpl = document.getElementById('footer-tpl');
+      let current = 0;
+
+      // give every slide its own footer so sponsors show on all slides (incl. PDF export)
+      slides.forEach((s, i) => {
+        const f = tpl.content.cloneNode(true);
+        f.querySelector('.idx').textContent = (i + 1) + ' / ' + slides.length;
+        s.appendChild(f);
+      });
+
+      function fit() {
+        const pad = 24;
+        const sx = (window.innerWidth - pad) / 1280;
+        const sy = (window.innerHeight - pad) / 720;
+        document.documentElement.style.setProperty('--scale', Math.min(sx, sy).toFixed(4));
+      }
+
+      function show(i) {
+        current = Math.max(0, Math.min(slides.length - 1, i));
+        slides.forEach((s, k) => s.classList.toggle('active', k === current));
+        progress.style.width = ((current + 1) / slides.length * 100) + '%';
+        if (location.hash !== '#' + (current + 1)) history.replaceState(null, '', '#' + (current + 1));
+      }
+
+      const next = () => show(current + 1);
+      const prev = () => show(current - 1);
+
+      slides.forEach((s, i) => {
+        const li = document.createElement('li');
+        li.innerHTML = '<span>' + (i + 1) + '</span>' + (s.dataset.title || 'Slide ' + (i + 1));
+        li.addEventListener('click', () => { show(i); jump.classList.remove('open'); });
+        jumpList.appendChild(li);
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.metaKey || e.ctrlKey || e.altKey) return;
+        switch (e.key) {
+          case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter':
+            e.preventDefault(); next(); break;
+          case 'ArrowLeft': case 'ArrowUp': case 'PageUp':
+            e.preventDefault(); prev(); break;
+          case 'Home': e.preventDefault(); show(0); break;
+          case 'End': e.preventDefault(); show(slides.length - 1); break;
+          case 'o': case 'O': jump.classList.toggle('open'); break;
+          case 'Escape': jump.classList.remove('open'); break;
+          case 'f': case 'F':
+            if (document.fullscreenElement) document.exitFullscreen();
+            else document.documentElement.requestFullscreen();
+            break;
+          case 't': case 'T': toggleTimer(); break;
+          case 'r': case 'R': resetTimer(); break;
+        }
+      });
+
+      document.getElementById('btn-next').addEventListener('click', next);
+      document.getElementById('btn-prev').addEventListener('click', prev);
+      document.getElementById('btn-jump').addEventListener('click', () => jump.classList.toggle('open'));
+
+      let touchX = null;
+      document.addEventListener('touchstart', (e) => { touchX = e.changedTouches[0].clientX; }, { passive: true });
+      document.addEventListener('touchend', (e) => {
+        if (touchX === null) return;
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 60) (dx < 0 ? next() : prev());
+        touchX = null;
+      }, { passive: true });
+
+      // session timer (helps keep 10-minute talks on time)
+      let started = null, tick = null;
+      function render() {
+        if (!started) return;
+        const s = Math.floor((Date.now() - started) / 1000);
+        const txt = String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+        stage.querySelectorAll('.timer').forEach(el => { el.textContent = txt; });
+      }
+      function toggleTimer() {
+        if (document.body.classList.toggle('timer-on')) {
+          started = started || Date.now();
+          tick = setInterval(render, 1000);
+          render();
+        } else {
+          clearInterval(tick);
+        }
+      }
+      function resetTimer() { started = Date.now(); render(); }
+
+      window.addEventListener('resize', fit);
+      fit();
+      show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+    })();
+  </script>
+</body>
+</html>

@@ -36,6 +36,7 @@
           <li><a href="#hero" class="active">Home</a></li>
           <li><a href="#overview">Overview</a></li>
           <li><a href="#cfp">Call for Papers</a></li>
+          <li><a href="#awards">Awards</a></li>
           <li><a href="#accepted-papers">Accepted Papers</a></li>
           <li><a href="#speakers">Speakers</a></li>
           <li><a href="#schedule">Schedule</a></li>
@@ -197,8 +198,9 @@
         </ul>
 
         <p data-aos="fade-up" data-aos-delay="150">
-          <strong>Awards:</strong> We will select <strong>one Best Paper</strong> and <strong>two Outstanding Papers</strong>.
-          The Best Paper will receive a <strong>$300 award</strong>, generously sponsored by Tencent.
+          <strong>Awards:</strong> We select <strong>one Best Paper</strong> and <strong>two Outstanding Papers</strong>.
+          The Best Paper receives a <strong>$300 award</strong>, generously sponsored by Tencent.
+          <a href="#awards">See this year&#39;s awardees</a>.
         </p>
         <p data-aos="fade-up" data-aos-delay="150">
           <strong>Template:</strong> <a href="https://www.acm.org/publications/proceedings-template" target="_blank" rel="noopener">ACM Proceedings Template</a>
@@ -213,6 +215,49 @@
       </div>
     </section>
     <!-- /CFP -->
+
+    <!-- Awards -->
+    <section id="awards" class="cfp section awards-section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Awards</h2>
+        <p>Congratulations to the RelSciFM 2026 awardees, selected by the program committee.</p>
+      </div>
+
+      <div class="container">
+        <div class="award-card best" data-aos="fade-up" data-aos-delay="80">
+          <div class="award-card-head">
+            <span class="award-badge best"><i class="bi bi-trophy-fill"></i> Best Paper Award</span>
+            <span class="award-prize">$300 award, generously sponsored by <strong>Tencent</strong></span>
+          </div>
+          <h3 class="award-paper-title">
+            <a href="https://openreview.net/forum?id=YiazBzWRAU" target="_blank" rel="noopener noreferrer">Physics-Embedded Graph Neural Operator for Interaction-Controlled Colloidal Aggregation</a>
+          </h3>
+          <p class="award-paper-authors">Yongjoon Choe, Sungwon Kim, Susan E. Burns, Chanyoung Park</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="120">
+            <div class="award-card outstanding">
+              <div class="award-card-head">
+                <span class="award-badge outstanding"><i class="bi bi-award-fill"></i> Outstanding Paper Award</span>
+              </div>
+              <h3 class="award-paper-title">Trustworthy Protein-Ligand Binding Affinity Prediction via Reliability-Aware Multi-Engine Fusion</h3>
+              <p class="award-paper-authors">Yongchan Hong, Defu Cao, Wenjin Liu, Thomas Ku, Jordy Homing Lam, Emily Nguyen, Willie Neiswanger, Vsevolod Katritch, Yan Liu</p>
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="160">
+            <div class="award-card outstanding">
+              <div class="award-card-head">
+                <span class="award-badge outstanding"><i class="bi bi-award-fill"></i> Outstanding Paper Award</span>
+              </div>
+              <h3 class="award-paper-title">MemNovo: Look Back at the Spectrum for Balanced De Novo Peptide Sequencing from Mass Spectrometry</h3>
+              <p class="award-paper-authors">Dongxin Lyu, Jingbo Zhou, Hongxin Xiang, Yuqiang Li, Jun Xia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- /Awards -->
 
     <!-- Accepted Papers -->
     <section id="accepted-papers" class="cfp section accepted-papers-section">
@@ -273,13 +318,23 @@
                   <td class="paper-index">5</td>
                   <td><div class="paper-title">Trustworthy Protein-Ligand Binding Affinity Prediction via Reliability-Aware Multi-Engine Fusion</div></td>
                   <td class="paper-authors">Yongchan Hong, Defu Cao, Wenjin Liu, Thomas Ku, Jordy Homing Lam, Emily Nguyen, Willie Neiswanger, Vsevolod Katritch, Yan Liu</td>
-                  <td><span class="paper-badge spotlight">Spotlight</span></td>
+                  <td>
+                    <div class="paper-badges">
+                      <span class="paper-badge spotlight">Spotlight</span>
+                      <span class="paper-badge outstanding-award">Outstanding Paper</span>
+                    </div>
+                  </td>
                 </tr>
                 <tr class="accepted-paper-row">
                   <td class="paper-index">6</td>
                   <td><div class="paper-title">MemNovo: Look Back at the Spectrum for Balanced De Novo Peptide Sequencing from Mass Spectrometry</div></td>
                   <td class="paper-authors">Dongxin Lyu, Jingbo Zhou, Hongxin Xiang, Yuqiang Li, Jun Xia</td>
-                  <td><span class="paper-badge spotlight">Spotlight</span></td>
+                  <td>
+                    <div class="paper-badges">
+                      <span class="paper-badge spotlight">Spotlight</span>
+                      <span class="paper-badge outstanding-award">Outstanding Paper</span>
+                    </div>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -404,7 +459,12 @@
                   <div class="paper-abstract-popover">Colloidal aggregation is a complex function of particle and solution electrochemical conditions, yet predicting aggregation behavior across diffusion-limited and reaction-limited regimes remains challenging due to the nonlinear dependence of collision efficiency on ionic strength and surface potential. This study presents a graph neural operator surrogate model that captures particle aggregation dynamics by embedding transport physics directly into the network architecture as an inductive bias. Particle size classes are represented as graph nodes with Brownian collision kernels encoded in edge features, while attention mechanisms conditioned on ionic strength and zeta potential learn collision efficiency variations governed by extended DLVO interactions. The proposed model predicts aggregation kinetics across a range of electrochemical conditions, achieving $R^2 &gt; 0.99$ for both held-out parameter combinations and temporal extrapolation, and outperforming baseline graph and MLP models without architectural physics embedding, as well as loss-based physics-informed neural networks. Validation against experimental measurements from bacteriophage, polystyrene, and cerium oxide systems confirms reproduction of aggregation regime transitions and kinetic saturation. Attention analysis reveals physically consistent reorganization from multiple information pathways under strong electrostatic repulsion to integrated processing under weak repulsion. This framework enables rapid, physically grounded surrogate modeling of population balance dynamics, with colloidal aggregation as a representative testbed.</div>
                 </td>
                 <td class="paper-authors">Yongjoon Choe, Sungwon Kim, Susan E. Burns, Chanyoung Park</td>
-                <td><span class="paper-badge oral">Oral</span></td>
+                <td>
+                  <div class="paper-badges">
+                    <span class="paper-badge oral">Oral</span>
+                    <span class="paper-badge best-award">Best Paper</span>
+                  </div>
+                </td>
               </tr>
               <tr class="accepted-paper-row" tabindex="0">
                 <td class="paper-index">13</td>
@@ -430,36 +490,9 @@
       </div>
       <div class="container">
         <div class="row gy-4 justify-content-center">
-    
-          
-          <!-- Chang Xu -->
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-            <div class="member">
-              <img src="assets/img/speakers/chang.jpg" class="img-fluid" alt="Chang Xu">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4><a href="https://chang-xu.github.io/">Chang Xu</a></h4>
-                  <span>Microsoft Research</span>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <!-- Alix Schmidt -->
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
-            <div class="member">
-              <img src="assets/img/speakers/alix.png" class="img-fluid" alt="Alix Schmidt">
-              <div class="member-info">
-                <div class="member-info-content">
-                  <h4><a href="https://www.linkedin.com/in/alixschmidt/">Alix Schmidt</a></h4>
-                  <span>Dow Chemical</span>
-                </div>
-              </div>
-            </div>
-          </div>
-    
           <!-- Hangwei Qian -->
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
             <div class="member">
               <img src="assets/img/speakers/hangwei.jpg" class="img-fluid" alt="Hangwei Qian">
               <div class="member-info">
@@ -471,19 +504,32 @@
             </div>
           </div>
 
-          <!-- Chenru Duan -->
-          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
+          <!-- Chang Xu -->
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
             <div class="member">
-              <img src="assets/img/organizers/Chenru-Duan.png" class="img-fluid" alt="Chenru Duan">
+              <img src="assets/img/speakers/chang.jpg" class="img-fluid" alt="Chang Xu">
               <div class="member-info">
                 <div class="member-info-content">
-                  <h4>Chenru Duan</h4>
-                  <span>Founder &amp; CTO, Deep Principle</span>
+                  <h4><a href="https://chang-xu.github.io/">Chang Xu</a></h4>
+                  <span>Microsoft Research</span>
                 </div>
               </div>
             </div>
           </div>
-    
+
+          <!-- Xiangliang Zhang -->
+          <div class="col-xl-3 col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="member">
+              <img src="assets/img/organizers/xiangliang.jpg" class="img-fluid" alt="Xiangliang Zhang">
+              <div class="member-info">
+                <div class="member-info-content">
+                  <h4><a href="https://sites.nd.edu/xiangliang-zhang/">Xiangliang Zhang</a></h4>
+                  <span>University of Notre Dame</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

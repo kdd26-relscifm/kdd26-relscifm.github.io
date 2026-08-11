@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RelSciFM @ KDD 2026 — Award Certificates</title>
+<link rel="stylesheet" href="assets/fonts/fonts.css">
+<style>
+  :root {
+    --heading: "Space Grotesk", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
+    --body: "DM Sans", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    --paper: #fdfbf6;
+    --ink: #14171e;
+    --ink-soft: #3a3f49;
+    --muted: #7d766b;
+    --rule: rgba(20, 23, 30, .14);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: #dfe1e6;
+    font-family: var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 12px;
+    background: rgba(255, 255, 255, .82);
+    backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+    font-size: 13px;
+    color: #4b5058;
+  }
+
+  .toolbar button {
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: #14171e;
+    border: 0;
+    border-radius: 980px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+
+  .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+  .sheets { padding: 26px 0 40px; }
+
+  /* ============================== sheet ============================== */
+
+  .cert {
+    --acc: #17518f;
+    --acc-warm: #2f6fbd;
+    --acc-soft: rgba(23, 81, 143, .085);
+    --acc-line: rgba(23, 81, 143, .34);
+    position: relative;
+    width: 297mm;
+    height: 210mm;
+    margin: 0 auto 26px auto;
+    padding: 8mm;
+    background: var(--paper);
+    color: var(--ink);
+    overflow: hidden;
+    box-shadow: 0 20px 54px rgba(15, 20, 30, .24);
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  .cert.gold {
+    --acc: #8c6a22;
+    --acc-warm: #b08d3f;
+    --acc-soft: rgba(140, 106, 34, .10);
+    --acc-line: rgba(140, 106, 34, .40);
+  }
+
+  /* warm paper tint, woven texture, edge vignette */
+  .cert::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(80mm 54mm at 6% -8%, var(--acc-soft), transparent 72%),
+      radial-gradient(80mm 54mm at 94% 106%, var(--acc-soft), transparent 72%),
+      repeating-linear-gradient(45deg, rgba(20, 23, 30, .016) 0 1px, transparent 1px 6px),
+      repeating-linear-gradient(-45deg, rgba(20, 23, 30, .012) 0 1px, transparent 1px 6px);
+  }
+
+  .cert::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(120% 100% at 50% 50%, transparent 58%, rgba(20, 23, 30, .05));
+  }
+
+  /* guilloche watermark behind the award block */
+  .rosette {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 150mm;
+    height: 150mm;
+    transform: translate(-50%, -52%);
+    color: var(--acc);
+    opacity: .055;
+  }
+
+  /* ============================== frame ============================== */
+
+  .frame {
+    position: relative;
+    height: 100%;
+    border: 1mm solid var(--acc-line);
+    padding: 1.5mm;
+  }
+
+  .frame-inner {
+    position: relative;
+    height: 100%;
+    border: 0.25mm solid var(--acc-line);
+    padding: 6mm 17mm 7mm 17mm;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .frame-inner > header,
+  .frame-inner > footer { flex: 0 0 auto; }
+
+  .corner {
+    position: absolute;
+    width: 13mm;
+    height: 13mm;
+    color: var(--acc);
+    opacity: .75;
+  }
+  .corner.tl { top: 2.4mm; left: 2.4mm; }
+  .corner.tr { top: 2.4mm; right: 2.4mm; transform: scaleX(-1); }
+  .corner.bl { bottom: 2.4mm; left: 2.4mm; transform: scaleY(-1); }
+  .corner.br { bottom: 2.4mm; right: 2.4mm; transform: scale(-1, -1); }
+
+  /* ============================== header ============================== */
+
+  .kdd-logo {
+    display: block;
+    width: 45mm;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  .wordmark {
+    font-family: var(--heading);
+    font-size: 15pt;
+    font-weight: 700;
+    letter-spacing: -0.012em;
+    margin-top: 2.6mm;
+    text-wrap: balance;
+  }
+
+  .wordmark .rs { color: var(--acc); }
+
+  .subtitle {
+    font-size: 9pt;
+    color: var(--muted);
+    margin-top: 1.6mm;
+    letter-spacing: .05em;
+  }
+
+  .flourish {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.6mm;
+    margin-top: 4mm;
+  }
+  .flourish i {
+    display: block;
+    height: 0.25mm;
+    width: 24mm;
+    background: linear-gradient(90deg, transparent, var(--acc-line));
+  }
+  .flourish i:last-child { background: linear-gradient(90deg, var(--acc-line), transparent); }
+  .flourish b {
+    width: 2mm;
+    height: 2mm;
+    background: var(--acc);
+    transform: rotate(45deg);
+    opacity: .75;
+  }
+  .flourish s {
+    width: 1.1mm;
+    height: 1.1mm;
+    background: var(--acc);
+    transform: rotate(45deg);
+    opacity: .4;
+  }
+
+  /* ============================== award block ============================== */
+
+  .main {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform-origin: center center;
+  }
+
+  .kicker {
+    font-family: var(--heading);
+    font-size: 8pt;
+    font-weight: 500;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .award {
+    font-family: var(--heading);
+    font-size: 34pt;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    color: var(--acc);
+    margin-top: 2.6mm;
+  }
+
+  .award-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2.2mm;
+    margin-top: 3mm;
+  }
+  .award-rule i {
+    display: block;
+    height: 0.35mm;
+    width: 20mm;
+    background: var(--acc);
+    opacity: .5;
+  }
+  .award-rule b {
+    width: 1.6mm;
+    height: 1.6mm;
+    background: var(--acc);
+    transform: rotate(45deg);
+    opacity: .8;
+  }
+
+  .presented {
+    font-size: 9pt;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4.5mm;
+  }
+
+  .recipients {
+    font-family: var(--heading);
+    font-size: 19pt;
+    font-weight: 600;
+    letter-spacing: -0.014em;
+    line-height: 1.36;
+    margin: 3.2mm auto 0 auto;
+    max-width: 224mm;
+    text-wrap: balance;
+  }
+
+  /* keep each name intact so lines only break between people */
+  .recipients span { white-space: nowrap; }
+  .recipients span:not(:last-child)::after {
+    content: " \00B7";
+    color: var(--acc);
+    opacity: .5;
+  }
+
+  .for-paper {
+    font-size: 8.5pt;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4.5mm;
+  }
+
+  .paper-title {
+    font-family: var(--heading);
+    font-size: 14pt;
+    font-weight: 500;
+    line-height: 1.42;
+    margin: 2.6mm auto 0 auto;
+    max-width: 200mm;
+    color: var(--ink-soft);
+    text-wrap: balance;
+  }
+
+  .prize {
+    display: inline-flex;
+    align-items: center;
+    gap: 2.4mm;
+    margin: 4.5mm auto 0 auto;
+    padding: 2.2mm 6.5mm;
+    border: 0.25mm solid var(--acc-line);
+    border-radius: 980px;
+    background: var(--acc-soft);
+    font-size: 9pt;
+    letter-spacing: .03em;
+    color: var(--ink-soft);
+  }
+  .prize b { color: var(--acc); font-weight: 600; }
+  .prize em {
+    width: 1.4mm;
+    height: 1.4mm;
+    background: var(--acc);
+    transform: rotate(45deg);
+    opacity: .6;
+  }
+
+  /* ============================== footer ============================== */
+
+  .foot {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: end;
+    gap: 9mm;
+    margin-top: 2mm;
+  }
+
+  .foot .lab {
+    font-family: var(--heading);
+    font-size: 6.8pt;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .foot .rule {
+    height: 0.3mm;
+    background: linear-gradient(90deg, var(--acc-line), var(--rule));
+    margin-bottom: 2.2mm;
+  }
+  .foot .right .rule { background: linear-gradient(90deg, var(--rule), var(--acc-line)); }
+
+  .foot .val { font-size: 9.5pt; line-height: 1.5; color: var(--ink-soft); }
+  .foot .val b { font-weight: 600; color: var(--ink); }
+
+  .foot .left { text-align: left; }
+  .foot .right { text-align: right; }
+
+  .sig-name {
+    font-family: var(--heading);
+    font-size: 10.5pt;
+    font-weight: 600;
+  }
+  .sig-sub { font-size: 8.5pt; color: var(--muted); margin-top: 0.6mm; }
+
+  .medal-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  .medal {
+    width: 20mm;
+    height: auto;
+    color: var(--acc);
+    font-family: var(--heading);
+    display: block;
+  }
+
+  .cert-no {
+    font-family: var(--heading);
+    font-size: 6.4pt;
+    font-weight: 600;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 1.6mm;
+  }
+
+  /* sponsors */
+  .sponsors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6mm;
+    margin-top: 2.5mm;
+    padding-top: 2.5mm;
+    border-top: 0.25mm solid var(--rule);
+  }
+  .sponsors .lab {
+    font-family: var(--heading);
+    font-size: 7pt;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .sponsors img { display: block; }
+  .sponsors .tc img { height: 9.4mm; }
+  .sponsors .dp {
+    background: #0f0923;
+    border-radius: 1.6mm;
+    padding: 1.4mm 3.4mm;
+    display: flex;
+    align-items: center;
+  }
+  .sponsors .dp img { height: 8.8mm; }
+
+  /* ============================== print ============================== */
+
+  @page { size: A4 landscape; margin: 0; }
+
+  @media print {
+    body { background: #fff; }
+    .toolbar { display: none; }
+    .sheets { padding: 0; }
+    .cert {
+      margin: 0;
+      box-shadow: none;
+      break-after: page;
+      page-break-after: always;
+    }
+    .cert:last-child { break-after: auto; page-break-after: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span>3 award certificates &middot; A4 landscape</span>
+  <button onclick="window.print()">Print / Save as PDF</button>
+</div>
+
+<!-- shared vector ornaments -->
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <!-- engraved guilloche rosette -->
+    <symbol id="rosette" viewBox="0 0 400 400">
+      <g fill="none" stroke="currentColor" stroke-width="0.8">
+        <circle cx="200" cy="200" r="196"/>
+        <circle cx="200" cy="200" r="150"/>
+        <circle cx="200" cy="200" r="96"/>
+        <circle cx="200" cy="200" r="44"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(12 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(24 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(36 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(48 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(60 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(72 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(84 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(96 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(108 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(120 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(132 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(144 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(156 200 200)"/>
+        <ellipse cx="200" cy="200" rx="192" ry="74" transform="rotate(168 200 200)"/>
+      </g>
+    </symbol>
+
+    <!-- art-deco corner flourish -->
+    <symbol id="corner" viewBox="0 0 60 60">
+      <g fill="none" stroke="currentColor" stroke-linecap="square">
+        <path d="M2 34 L2 2 L34 2" stroke-width="2.4"/>
+        <path d="M8 42 L8 8 L42 8" stroke-width="0.9" opacity=".8"/>
+        <path d="M13 50 L13 13 L50 13" stroke-width="0.55" opacity=".5"/>
+      </g>
+      <rect x="17.5" y="17.5" width="5" height="5" transform="rotate(45 20 20)" fill="currentColor" opacity=".85"/>
+    </symbol>
+
+    <!-- ribboned medal seal -->
+    <symbol id="medal" viewBox="0 0 140 182">
+      <path d="M50 110 L50 176 L70 160 L70 110 Z" fill="currentColor" opacity=".85"/>
+      <path d="M90 110 L90 176 L70 160 L70 110 Z" fill="currentColor" opacity=".55"/>
+      <circle cx="70" cy="70" r="64" fill="none" stroke="currentColor" stroke-width="6"
+              stroke-dasharray="1.5 11.6" stroke-linecap="round" opacity=".85"/>
+      <circle cx="70" cy="70" r="56" fill="currentColor" opacity=".07"/>
+      <circle cx="70" cy="70" r="56" fill="none" stroke="currentColor" stroke-width="2.2"/>
+      <circle cx="70" cy="70" r="48" fill="none" stroke="currentColor" stroke-width="0.9" opacity=".55"/>
+      <text x="70" y="55" text-anchor="middle" fill="currentColor" opacity=".72"
+            font-size="9" font-weight="600" letter-spacing="1.9">KDD 2026</text>
+      <text x="70" y="80" text-anchor="middle" fill="currentColor"
+            font-size="18" font-weight="700" letter-spacing="-0.4">RelSciFM</text>
+      <rect x="66.5" y="88" width="7" height="7" transform="rotate(45 70 91.5)" fill="currentColor" opacity=".55"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="sheets">
+
+  <!-- ==================== 1. BEST PAPER ==================== -->
+  <section class="cert gold" data-cert="bp">
+    <svg class="rosette" aria-hidden="true"><use href="#rosette"/></svg>
+    <div class="frame">
+      <svg class="corner tl" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#corner"/></svg>
+
+      <div class="frame-inner">
+
+        <header>
+          <img class="kdd-logo" src="assets/img/kdd2026-logo.png" alt="KDD 2026 &mdash; Jeju, Korea">
+          <div class="wordmark"><span class="rs">RelSciFM</span> &mdash; Workshop on Reliable Scientific Foundation Models</div>
+          <div class="subtitle">Design, Training, Grounding, and Verification</div>
+          <div class="flourish"><i></i><s></s><b></b><s></s><i></i></div>
+        </header>
+
+        <div class="main">
+          <div class="kicker">This certificate is proudly presented for the</div>
+          <div class="award">Best Paper Award</div>
+          <div class="award-rule"><i></i><b></b><i></i></div>
+
+          <div class="presented">Awarded to</div>
+          <div class="recipients"><span>Yongjoon Choe</span> <span>Sungwon Kim</span> <span>Susan E. Burns</span> <span>Chanyoung Park</span></div>
+
+          <div class="for-paper">For the paper</div>
+          <div class="paper-title">Physics-Embedded Graph Neural Operator for Interaction-Controlled Colloidal Aggregation</div>
+
+          <div><span class="prize">$300 Prize <em></em> generously sponsored by <b>Tencent</b></span></div>
+        </div>
+
+        <footer>
+          <div class="foot">
+            <div class="left">
+              <div class="rule"></div>
+              <div class="lab">Presented on</div>
+              <div class="val"><b>August 10, 2026</b><br>ICC Jeju, Jeju, Korea</div>
+            </div>
+
+            <div class="medal-wrap">
+              <svg class="medal" viewBox="0 0 140 182" aria-hidden="true"><use href="#medal"/></svg>
+              <div class="cert-no">No. RSFM26 &middot; BP</div>
+            </div>
+
+            <div class="right">
+              <div class="rule"></div>
+              <div class="lab">On behalf of the workshop</div>
+              <div class="sig-name">Organizing Committee</div>
+              <div class="sig-sub">RelSciFM @ KDD 2026</div>
+            </div>
+          </div>
+
+          <div class="sponsors">
+            <span class="lab">With generous support from</span>
+            <span class="tc"><img src="assets/img/sponsors/tencent.png" alt="Tencent"></span>
+            <span class="dp"><img src="assets/img/sponsors/deepprinciple.jpeg" alt="Deep Principle"></span>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2. OUTSTANDING PAPER 1 ==================== -->
+  <section class="cert" data-cert="op1">
+    <svg class="rosette" aria-hidden="true"><use href="#rosette"/></svg>
+    <div class="frame">
+      <svg class="corner tl" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#corner"/></svg>
+
+      <div class="frame-inner">
+
+        <header>
+          <img class="kdd-logo" src="assets/img/kdd2026-logo.png" alt="KDD 2026 &mdash; Jeju, Korea">
+          <div class="wordmark"><span class="rs">RelSciFM</span> &mdash; Workshop on Reliable Scientific Foundation Models</div>
+          <div class="subtitle">Design, Training, Grounding, and Verification</div>
+          <div class="flourish"><i></i><s></s><b></b><s></s><i></i></div>
+        </header>
+
+        <div class="main">
+          <div class="kicker">This certificate is proudly presented for an</div>
+          <div class="award">Outstanding Paper Award</div>
+          <div class="award-rule"><i></i><b></b><i></i></div>
+
+          <div class="presented">Awarded to</div>
+          <div class="recipients"><span>Yongchan Hong</span> <span>Defu Cao</span> <span>Wenjin Liu</span> <span>Thomas Ku</span> <span>Jordy Homing Lam</span> <span>Emily Nguyen</span> <span>Willie Neiswanger</span> <span>Vsevolod Katritch</span> <span>Yan Liu</span></div>
+
+          <div class="for-paper">For the paper</div>
+          <div class="paper-title">Trustworthy Protein-Ligand Binding Affinity Prediction via Reliability-Aware Multi-Engine Fusion</div>
+
+          <div><span class="prize">Selected by the <b>RelSciFM 2026 Program Committee</b></span></div>
+        </div>
+
+        <footer>
+          <div class="foot">
+            <div class="left">
+              <div class="rule"></div>
+              <div class="lab">Presented on</div>
+              <div class="val"><b>August 10, 2026</b><br>ICC Jeju, Jeju, Korea</div>
+            </div>
+
+            <div class="medal-wrap">
+              <svg class="medal" viewBox="0 0 140 182" aria-hidden="true"><use href="#medal"/></svg>
+              <div class="cert-no">No. RSFM26 &middot; OP1</div>
+            </div>
+
+            <div class="right">
+              <div class="rule"></div>
+              <div class="lab">On behalf of the workshop</div>
+              <div class="sig-name">Organizing Committee</div>
+              <div class="sig-sub">RelSciFM @ KDD 2026</div>
+            </div>
+          </div>
+
+          <div class="sponsors">
+            <span class="lab">With generous support from</span>
+            <span class="tc"><img src="assets/img/sponsors/tencent.png" alt="Tencent"></span>
+            <span class="dp"><img src="assets/img/sponsors/deepprinciple.jpeg" alt="Deep Principle"></span>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. OUTSTANDING PAPER 2 ==================== -->
+  <section class="cert" data-cert="op2">
+    <svg class="rosette" aria-hidden="true"><use href="#rosette"/></svg>
+    <div class="frame">
+      <svg class="corner tl" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner tr" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner bl" aria-hidden="true"><use href="#corner"/></svg>
+      <svg class="corner br" aria-hidden="true"><use href="#corner"/></svg>
+
+      <div class="frame-inner">
+
+        <header>
+          <img class="kdd-logo" src="assets/img/kdd2026-logo.png" alt="KDD 2026 &mdash; Jeju, Korea">
+          <div class="wordmark"><span class="rs">RelSciFM</span> &mdash; Workshop on Reliable Scientific Foundation Models</div>
+          <div class="subtitle">Design, Training, Grounding, and Verification</div>
+          <div class="flourish"><i></i><s></s><b></b><s></s><i></i></div>
+        </header>
+
+        <div class="main">
+          <div class="kicker">This certificate is proudly presented for an</div>
+          <div class="award">Outstanding Paper Award</div>
+          <div class="award-rule"><i></i><b></b><i></i></div>
+
+          <div class="presented">Awarded to</div>
+          <div class="recipients"><span>Dongxin Lyu</span> <span>Jingbo Zhou</span> <span>Hongxin Xiang</span> <span>Yuqiang Li</span> <span>Jun Xia</span></div>
+
+          <div class="for-paper">For the paper</div>
+          <div class="paper-title">MemNovo: Look Back at the Spectrum for Balanced De Novo Peptide Sequencing from Mass Spectrometry</div>
+
+          <div><span class="prize">Selected by the <b>RelSciFM 2026 Program Committee</b></span></div>
+        </div>
+
+        <footer>
+          <div class="foot">
+            <div class="left">
+              <div class="rule"></div>
+              <div class="lab">Presented on</div>
+              <div class="val"><b>August 10, 2026</b><br>ICC Jeju, Jeju, Korea</div>
+            </div>
+
+            <div class="medal-wrap">
+              <svg class="medal" viewBox="0 0 140 182" aria-hidden="true"><use href="#medal"/></svg>
+              <div class="cert-no">No. RSFM26 &middot; OP2</div>
+            </div>
+
+            <div class="right">
+              <div class="rule"></div>
+              <div class="lab">On behalf of the workshop</div>
+              <div class="sig-name">Organizing Committee</div>
+              <div class="sig-sub">RelSciFM @ KDD 2026</div>
+            </div>
+          </div>
+
+          <div class="sponsors">
+            <span class="lab">With generous support from</span>
+            <span class="tc"><img src="assets/img/sponsors/tencent.png" alt="Tencent"></span>
+            <span class="dp"><img src="assets/img/sponsors/deepprinciple.jpeg" alt="Deep Principle"></span>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  // ?only=bp|op1|op2 renders a single certificate, for exporting one PDF per award.
+  (function () {
+    var only = new URLSearchParams(location.search).get('only');
+    var sheets = document.querySelectorAll('.cert');
+    if (only) {
+      sheets.forEach(function (c) {
+        if (c.dataset.cert !== only) c.remove();
+      });
+    }
+    var n = document.querySelectorAll('.cert').length;
+    document.querySelector('.toolbar span').textContent =
+      n + (n === 1 ? ' award certificate' : ' award certificates') + ' \u00B7 A4 landscape';
+  })();
+
+  // Long author lists can outgrow the centre block and collide with the header
+  // flourish; scale each block down just enough to sit inside the frame.
+  function fitCertificates() {
+    document.querySelectorAll('.cert .main').forEach(function (main) {
+      main.style.transform = 'none';
+      main.style.justifyContent = 'flex-start';
+      var natural = main.scrollHeight;
+      var available = main.clientHeight;
+      main.style.justifyContent = '';
+      if (natural > available) {
+        main.style.transform = 'scale(' + (available / natural * 0.97).toFixed(4) + ')';
+      }
+    });
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(fitCertificates);
+  }
+  window.addEventListener('load', fitCertificates);
+  window.addEventListener('beforeprint', fitCertificates);
+</script>
+
+</body>
+</html>
