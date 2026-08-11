@@ -1536,16 +1536,6 @@ section,
   color: #e0b3ff;
 }
 
-.award-prize {
-  color: rgba(245, 245, 247, 0.72);
-  font-size: 14px;
-}
-
-.award-prize strong {
-  color: #ffffff;
-  font-weight: 600;
-}
-
 .award-paper-title {
   font-size: 21px;
   line-height: 1.35;
