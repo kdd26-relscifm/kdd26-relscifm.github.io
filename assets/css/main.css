@@ -1497,6 +1497,13 @@ section,
 .award-card.outstanding {
   background: linear-gradient(135deg, rgba(191, 90, 242, 0.1), rgba(255, 255, 255, 0.035) 58%);
   border-color: rgba(191, 90, 242, 0.22);
+  display: flex;
+  flex-direction: column;
+}
+
+/* keep both certificates on the same baseline when author lists differ in length */
+.award-card.outstanding .award-certificate {
+  margin-top: auto;
 }
 
 .award-card-head {
@@ -1582,6 +1589,69 @@ section,
   color: #e0b3ff;
 }
 
+.award-certificate {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  display: block;
+  margin-top: 22px;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.award-certificate img {
+  display: block;
+  transition: transform 0.4s ease;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .award-card.best {
+    align-items: center;
+    display: flex;
+    gap: 38px;
+  }
+
+  .award-card.best .award-card-body {
+    flex: 1 1 0;
+    min-width: 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .award-card.best .award-certificate {
+    flex: 0 0 48%;
+    margin-top: 0;
+  }
+}
+
+.award-certificate:hover img {
+  transform: scale(1.03);
+}
+
+.award-certificate-hint {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.62);
+  border-radius: 999px;
+  bottom: 12px;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: var(--heading-font);
+  font-size: 12px;
+  gap: 7px;
+  left: 12px;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  padding: 7px 14px;
+  position: absolute;
+  transition: opacity 0.3s ease;
+}
+
+.award-certificate:hover .award-certificate-hint,
+.award-certificate:focus-visible .award-certificate-hint {
+  opacity: 1;
+}
+
 @media (max-width: 575px) {
   .award-card,
   .award-card.best {
@@ -1594,5 +1664,71 @@ section,
 
   .award-paper-title {
     font-size: 19px;
+  }
+}
+
+/*--------------------------------------------------------------
+# Highlights
+--------------------------------------------------------------*/
+.highlights-section .section-title p {
+  color: var(--text-secondary);
+  margin-top: 10px;
+}
+
+.highlight-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+  display: block;
+  overflow: hidden;
+  position: relative;
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.highlight-card:hover {
+  border-color: rgba(41, 151, 255, 0.4);
+  transform: translateY(-4px);
+}
+
+.highlight-card img {
+  aspect-ratio: 4 / 3;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  width: 100%;
+}
+
+.highlight-card.wide img {
+  aspect-ratio: 16 / 7;
+  object-position: center 62%;
+}
+
+.highlight-card:hover img {
+  transform: scale(1.04);
+}
+
+.highlight-caption {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.42) 55%, transparent);
+  bottom: 0;
+  color: #f5f5f7;
+  display: block;
+  font-family: var(--heading-font);
+  font-size: 15px;
+  left: 0;
+  line-height: 1.4;
+  padding: 46px 22px 20px;
+  position: absolute;
+  right: 0;
+}
+
+@media (max-width: 575px) {
+  .highlight-card.wide img {
+    aspect-ratio: 4 / 3;
+  }
+
+  .highlight-caption {
+    font-size: 14px;
+    padding: 38px 16px 16px;
   }
 }
