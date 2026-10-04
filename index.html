@@ -10,9 +10,7 @@
   <meta name="keywords" content="KDD, KDD 2026, Scientific Foundation Models, SciFM, Reliability, Grounding, Verification, Evaluation, Trustworthy AI">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="assets/fonts/google-sans-latin.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -23,6 +21,7 @@
 
   <!-- Main CSS File -->
   <link href="assets/css/main.css" rel="stylesheet">
+  <link href="assets/css/brand.css" rel="stylesheet">
 </head>
 
 <body class="index-page">
@@ -30,6 +29,10 @@
   <!-- Header -->
   <header id="header" class="header d-flex align-items-center fixed-top">
     <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a class="brand-home" href="#hero" aria-label="RelSciFM home">
+        <img src="assets/img/brand/relscifm-horizontal.svg" width="1280" height="360" alt="RelSciFM — KDD 2026 Workshop">
+      </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
@@ -59,7 +62,8 @@
     <!-- Hero -->
     <section id="hero" class="hero section dark-background">
       <img src="assets/img/bg.jpg" alt="" class="hero-bg" data-aos="fade-in">
-      <div class="container d-flex flex-column align-items-center text-center mt-auto">
+      <div class="container hero-brand-layout">
+        <div class="hero-copy">
         <div class="hero-badge" data-aos="fade-up" data-aos-delay="50">KDD 2026 Workshop</div>
         <h2 data-aos="fade-up" data-aos-delay="100">
           Reliable Scientific<br>
@@ -71,6 +75,8 @@
         <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="250" style="font-size: 18px; margin-top: 12px;">
           Jeju · Korea · KDD 2026
         </p>
+        </div>
+        <img class="hero-brand" src="assets/img/brand/relscifm-vertical.svg" width="1000" height="1000" alt="RelSciFM — KDD 2026 Workshop" fetchpriority="high">
       </div>
 
       <div class="about-info mt-auto position-relative">
